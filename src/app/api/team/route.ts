@@ -19,7 +19,7 @@ export async function GET() {
 
   const supabase = createSupabaseAdmin();
   const { data, error } = await supabase
-    .from("admin_users")
+    .from("admin_team")
     .select("email, role, created_at")
     .order("created_at", { ascending: true });
 
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
 
   const supabase = createSupabaseAdmin();
   const { data, error } = await supabase
-    .from("admin_users")
+    .from("admin_team")
     .upsert({ email, role }, { onConflict: "email" })
     .select("email, role, created_at")
     .single();

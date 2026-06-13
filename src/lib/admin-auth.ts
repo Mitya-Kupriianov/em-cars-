@@ -55,7 +55,7 @@ export async function getAdminUser(): Promise<AdminUser | null> {
 
   const supabase = createSupabaseAdmin();
   const { data } = await supabase
-    .from("admin_users")
+    .from("admin_team")
     .select("role")
     .eq("email", email)
     .maybeSingle();

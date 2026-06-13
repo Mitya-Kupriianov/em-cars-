@@ -311,7 +311,7 @@ export default function CarDetailPage({ params }: { params: Promise<{ slug: stri
                           ${car.old_price_usd.toLocaleString()}
                         </div>
                       )}
-                      <div className={`text-3xl font-bold ${!!car.old_price_usd && car.old_price_usd > car.price_usd ? "text-red-400" : "text-brand"}`}>
+                      <div className={`text-3xl font-bold ${!!car.old_price_usd && car.old_price_usd > car.price_usd ? "text-[#F23645]" : "text-brand"}`}>
                         {t("catalog.from")} ${car.price_usd.toLocaleString()}
                       </div>
                       {car.price_uah > 0 && (
@@ -319,7 +319,7 @@ export default function CarDetailPage({ params }: { params: Promise<{ slug: stri
                           {!!car.old_price_uah && car.old_price_uah > car.price_uah && (
                             <span className="mr-2 line-through">{car.old_price_uah.toLocaleString()} &#8372;</span>
                           )}
-                          <span className={!!car.old_price_uah && car.old_price_uah > car.price_uah ? "font-semibold text-red-400" : ""}>
+                          <span className={!!car.old_price_uah && car.old_price_uah > car.price_uah ? "font-semibold text-[#F23645]" : ""}>
                             {car.price_uah.toLocaleString()} &#8372;
                           </span>
                         </div>

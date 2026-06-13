@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Electro Motors — каталог электромобилей
 
-## Getting Started
+Веб-приложение для продажи электромобилей: каталог с фильтрами, страницы авто,
+кредитный калькулятор, форма заявки и админ-панель для управления контентом.
+Двуязычный интерфейс (RU / UA).
 
-First, run the development server:
+## Стек
+
+- **Next.js** (App Router) + TypeScript
+- **Tailwind CSS** + shadcn/ui
+- **Supabase** — база данных и хранилище файлов
+- **Clerk** — авторизация
+- Интернационализация (RU / UA)
+
+## Возможности
+
+- Каталог авто с фильтрами и страницами по каждой модели
+- Кредитный калькулятор
+- Форма обратной связи / заявки
+- Админ-панель: машины, бренды, баннеры, офисы, медиа, заявки
+- Загрузка изображений в Supabase Storage
+
+## Быстрый старт
 
 ```bash
+# 1. Установить зависимости
+npm install
+
+# 2. Создать .env.local на основе шаблона и заполнить ключи
+cp .env.example .env.local
+
+# 3. Запустить dev-сервер
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Приложение откроется на http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Переменные окружения
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Все нужные ключи перечислены в [`.env.example`](.env.example). Получить их:
 
-## Learn More
+- **Supabase** — Project Settings → API ([supabase.com](https://supabase.com))
+- **Clerk** — API Keys в дашборде ([clerk.com](https://clerk.com))
 
-To learn more about Next.js, take a look at the following resources:
+> `.env.local` не коммитится в git — храни реальные ключи только локально.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## База данных
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+SQL-схема и настройка хранилища лежат в корне:
 
-## Deploy on Vercel
+- `supabase-schema.sql` — таблицы
+- `supabase-storage.sql` — bucket'ы и политики Storage
+- `seed-cars-batch2.sql` — тестовые данные
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Скрипты
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Команда         | Описание                     |
+| --------------- | ---------------------------- |
+| `npm run dev`   | Запуск в режиме разработки   |
+| `npm run build` | Сборка для продакшена        |
+| `npm run start` | Запуск собранного приложения |
+| `npm run lint`  | Проверка ESLint              |

@@ -6,6 +6,8 @@ export interface Car {
   year: number;
   price_usd: number;
   price_uah: number;
+  old_price_usd?: number | null; // стара (зачеркнута) ціна для акції; 0/null — без знижки
+  old_price_uah?: number | null;
   range_km: number;
   battery_kwh: number;
   power_hp: number;

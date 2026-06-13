@@ -74,6 +74,8 @@ function EditCarPage() {
   const [color, setColor] = useState("");
   const [priceUsd, setPriceUsd] = useState("");
   const [priceUah, setPriceUah] = useState("");
+  const [oldPriceUsd, setOldPriceUsd] = useState("");
+  const [oldPriceUah, setOldPriceUah] = useState("");
   const [rangeKm, setRangeKm] = useState("");
   const [batteryKwh, setBatteryKwh] = useState("");
   const [powerHp, setPowerHp] = useState("");
@@ -151,6 +153,8 @@ function EditCarPage() {
         setCityUa(car.city_ua || "");
         setPriceUsd(String(car.price_usd));
         setPriceUah(String(car.price_uah || 0));
+        setOldPriceUsd(car.old_price_usd ? String(car.old_price_usd) : "");
+        setOldPriceUah(car.old_price_uah ? String(car.old_price_uah) : "");
         setRangeKm(String(car.range_km));
         setBatteryKwh(String(car.battery_kwh || ""));
         setPowerHp(String(car.power_hp || ""));
@@ -255,6 +259,8 @@ function EditCarPage() {
       year: Number(year),
       price_usd: Number(priceUsd),
       price_uah: Number(priceUah) || 0,
+      old_price_usd: Number(oldPriceUsd) || 0,
+      old_price_uah: Number(oldPriceUah) || 0,
       range_km: Number(rangeKm),
       battery_kwh: Number(batteryKwh) || 0,
       power_hp: Number(powerHp) || 0,
@@ -479,6 +485,14 @@ function EditCarPage() {
             <div>
               <Label>Ціна (UAH)</Label>
               <Input value={priceUah} onChange={(e) => setPriceUah(e.target.value)} type="number" />
+            </div>
+            <div>
+              <Label>Стара ціна (USD) <span className="text-muted-foreground">— зачеркнута, для акції; 0 = без знижки</span></Label>
+              <Input value={oldPriceUsd} onChange={(e) => setOldPriceUsd(e.target.value)} type="number" placeholder="0" />
+            </div>
+            <div>
+              <Label>Стара ціна (UAH) <span className="text-muted-foreground">— зачеркнута, для акції; 0 = без знижки</span></Label>
+              <Input value={oldPriceUah} onChange={(e) => setOldPriceUah(e.target.value)} type="number" placeholder="0" />
             </div>
             <div>
               <Label>Запас ходу (км)</Label>

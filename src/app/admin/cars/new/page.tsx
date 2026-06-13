@@ -204,6 +204,8 @@ export default function NewCarPage() {
       year: Number(year),
       price_usd: Number(formData.get("price_usd")),
       price_uah: Number(formData.get("price_uah")) || 0,
+      old_price_usd: Number(formData.get("old_price_usd")) || 0,
+      old_price_uah: Number(formData.get("old_price_uah")) || 0,
       range_km: Number(rangeKm) || 0,
       battery_kwh: Number(batteryKwh) || 0,
       power_hp: Number(powerHp) || 0,
@@ -418,6 +420,14 @@ export default function NewCarPage() {
             <div>
               <Label>Ціна (UAH)</Label>
               <Input name="price_uah" type="number" placeholder="1073000" />
+            </div>
+            <div>
+              <Label>Стара ціна (USD) <span className="text-muted-foreground">— зачеркнута, для акції; 0 = без знижки</span></Label>
+              <Input name="old_price_usd" type="number" placeholder="0" />
+            </div>
+            <div>
+              <Label>Стара ціна (UAH) <span className="text-muted-foreground">— зачеркнута, для акції; 0 = без знижки</span></Label>
+              <Input name="old_price_uah" type="number" placeholder="0" />
             </div>
             <div>
               <Label>Запас ходу (км)</Label>

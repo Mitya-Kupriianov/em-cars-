@@ -112,12 +112,22 @@ export function CarCard({ car }: CarCardProps) {
             <div>
               {car.price_usd > 0 ? (
                 <>
-                  <div className="text-2xl font-bold">
+                  {!!car.old_price_usd && car.old_price_usd > car.price_usd && (
+                    <div className="text-sm text-muted-foreground line-through">
+                      ${car.old_price_usd.toLocaleString()}
+                    </div>
+                  )}
+                  <div className={`text-2xl font-bold${!!car.old_price_usd && car.old_price_usd > car.price_usd ? " text-red-600" : ""}`}>
                     {t("catalog.from")} ${car.price_usd.toLocaleString()}
                   </div>
                   {car.price_uah > 0 && (
                     <div className="text-xs text-muted-foreground">
-                      {car.price_uah.toLocaleString()} &#8372;
+                      {!!car.old_price_uah && car.old_price_uah > car.price_uah && (
+                        <span className="mr-1.5 line-through">{car.old_price_uah.toLocaleString()} &#8372;</span>
+                      )}
+                      <span className={!!car.old_price_uah && car.old_price_uah > car.price_uah ? "font-semibold text-red-600" : ""}>
+                        {car.price_uah.toLocaleString()} &#8372;
+                      </span>
                     </div>
                   )}
                 </>

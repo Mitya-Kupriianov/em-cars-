@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/admin-auth";
 import { execFile } from "child_process";
 import { writeFile, unlink } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 
 export async function POST(req: NextRequest) {
+  const gate = await requireAdmin("editContent");
+  if (gate instanceof NextResponse) return gate;
+
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;

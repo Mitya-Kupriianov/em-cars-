@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/admin-auth";
 import { createSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase";
 import { buildSpecWorkbook, workbookToBuffer, ExportSpec } from "@/lib/spec-excel";
 import { normalizeSheet } from "@/lib/spec-sheet";
@@ -8,6 +9,9 @@ interface ModelSpec extends ExportSpec {
 }
 
 export async function GET(req: NextRequest) {
+  const gate = await requireAdmin("editContent");
+  if (gate instanceof NextResponse) return gate;
+
   if (!isSupabaseConfigured()) {
     return NextResponse.json({ error: "Supabase not configured" }, { status: 503 });
   }

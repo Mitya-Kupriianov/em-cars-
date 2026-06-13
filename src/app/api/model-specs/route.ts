@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { requireAdmin, requireOwner } from "@/lib/admin-auth";
 import { createSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase";
 
 export async function GET(req: NextRequest) {
@@ -24,6 +25,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const gate = await requireAdmin("editContent");
+  if (gate instanceof NextResponse) return gate;
+
   if (!isSupabaseConfigured()) {
     return NextResponse.json({ error: "Supabase not configured" }, { status: 503 });
   }
@@ -62,6 +66,9 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  const gate = await requireOwner();
+  if (gate instanceof NextResponse) return gate;
+
   if (!isSupabaseConfigured()) {
     return NextResponse.json({ error: "Supabase not configured" }, { status: 503 });
   }

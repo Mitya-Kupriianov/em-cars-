@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/admin-auth";
 import { createSupabaseBrowser, createSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase";
 
 const localRequests: Array<Record<string, unknown>> = [];
@@ -44,6 +45,9 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
+  const gate = await requireAdmin("viewRequests");
+  if (gate instanceof NextResponse) return gate;
+
   if (!isSupabaseConfigured()) {
     return NextResponse.json(localRequests);
   }

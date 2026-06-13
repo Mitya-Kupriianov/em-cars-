@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/admin-auth";
 import * as XLSX from "xlsx";
 import { SpecCategory } from "@/lib/spec-sheet";
 
@@ -26,6 +27,9 @@ function fromFilename(name: string): { brand: string; model: string } {
 }
 
 export async function POST(req: NextRequest) {
+  const gate = await requireAdmin("editContent");
+  if (gate instanceof NextResponse) return gate;
+
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;

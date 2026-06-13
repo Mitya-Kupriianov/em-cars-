@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
+import { requireOwner } from "@/lib/admin-auth";
 import * as XLSX from "xlsx";
 import { createSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase";
 
 export async function POST(req: Request) {
+  const gate = await requireOwner();
+  if (gate instanceof NextResponse) return gate;
+
   if (!isSupabaseConfigured()) {
     return NextResponse.json({ error: "Supabase not configured" }, { status: 503 });
   }

@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
+import { requireOwner } from "@/lib/admin-auth";
 import * as XLSX from "xlsx";
 import { getCars } from "@/lib/cars-service";
 
 export async function GET() {
+  const gate = await requireOwner();
+  if (gate instanceof NextResponse) return gate;
+
   try {
     const cars = await getCars(undefined, true);
 

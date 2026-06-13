@@ -76,6 +76,9 @@ function EditCarPage() {
   const [priceUah, setPriceUah] = useState("");
   const [oldPriceUsd, setOldPriceUsd] = useState("");
   const [oldPriceUah, setOldPriceUah] = useState("");
+  // true только после того, как пользователь сам сменил комплектацію —
+  // чтобы автозаповнення не стирало завантажені характеристики при відкритті
+  const [trimTouched, setTrimTouched] = useState(false);
   const [rangeKm, setRangeKm] = useState("");
   const [batteryKwh, setBatteryKwh] = useState("");
   const [powerHp, setPowerHp] = useState("");
@@ -187,6 +190,7 @@ function EditCarPage() {
 
   // Auto-fill specs when trim changes
   useEffect(() => {
+    if (!trimTouched) return; // не чіпати характеристики при початковому завантаженні
     if (!brand || !trim) return;
     const hasSpec = specTrims.some((t) => t === trim);
     if (!hasSpec) {
@@ -370,7 +374,7 @@ function EditCarPage() {
             <div>
               <Label>Комплектація</Label>
               {brandTrims.length > 0 ? (
-                <Select value={trim} onValueChange={(v) => v && setTrim(v)}>
+                <Select value={trim} onValueChange={(v) => { if (v) { setTrim(v); setTrimTouched(true); } }}>
                   <SelectTrigger><SelectValue placeholder="Оберіть комплектацію" /></SelectTrigger>
                   <SelectContent className="light">
                     {brandTrims.map((t) => (
@@ -386,6 +390,7 @@ function EditCarPage() {
                   value={trim}
                   onChange={(e) => {
                     setTrim(e.target.value);
+                    setTrimTouched(true);
                     setErrors((prev) => ({ ...prev, trim: validateEnglish(e.target.value) }));
                   }}
                   placeholder="Premium, Basic, Sport..."

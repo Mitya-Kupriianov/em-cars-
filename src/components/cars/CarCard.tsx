@@ -117,7 +117,7 @@ export function CarCard({ car }: CarCardProps) {
                       ${car.old_price_usd.toLocaleString()}
                     </div>
                   )}
-                  <div className={`text-2xl font-bold${!!car.old_price_usd && car.old_price_usd > car.price_usd ? " text-red-700" : ""}`}>
+                  <div className={`text-2xl font-bold${!!car.old_price_usd && car.old_price_usd > car.price_usd ? " text-red-400" : ""}`}>
                     {t("catalog.from")} ${car.price_usd.toLocaleString()}
                   </div>
                   {car.price_uah > 0 && (
@@ -125,7 +125,7 @@ export function CarCard({ car }: CarCardProps) {
                       {!!car.old_price_uah && car.old_price_uah > car.price_uah && (
                         <span className="mr-1.5 line-through">{car.old_price_uah.toLocaleString()} &#8372;</span>
                       )}
-                      <span className={!!car.old_price_uah && car.old_price_uah > car.price_uah ? "font-semibold text-red-700" : ""}>
+                      <span className={!!car.old_price_uah && car.old_price_uah > car.price_uah ? "font-semibold text-red-400" : ""}>
                         {car.price_uah.toLocaleString()} &#8372;
                       </span>
                     </div>

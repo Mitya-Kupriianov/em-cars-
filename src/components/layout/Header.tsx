@@ -44,6 +44,7 @@ export function Header() {
   ];
 
   return (
+    <>
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
@@ -135,14 +136,15 @@ export function Header() {
           </button>
         </div>
       </div>
+    </header>
 
-      {/* Mobile fullscreen menu */}
-      {mobileOpen && (
+    {/* Mobile fullscreen menu */}
+    {mobileOpen && (
         <div className="fixed inset-0 z-[60] flex flex-col bg-background md:hidden">
           {/* Top bar */}
           <div className="flex h-16 shrink-0 items-center justify-between border-b px-4">
             <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2">
-              <img src="/logo.PNG" alt="EM" className="h-12 w-auto brightness-0 invert light:filter-none" />
+              <img src="/logo.PNG" alt="EM" className="h-16 w-auto brightness-0 invert light:filter-none" />
               <span className="text-lg font-bold tracking-tight">
                 Electro<span className="text-brand">Motors</span>
               </span>
@@ -213,6 +215,6 @@ export function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }

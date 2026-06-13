@@ -90,7 +90,7 @@ export async function DELETE(req: Request) {
   }
 
   const supabase = createSupabaseAdmin();
-  const { error } = await supabase.from("admin_users").delete().eq("email", email);
+  const { error } = await supabase.from("admin_team").delete().eq("email", email);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

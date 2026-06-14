@@ -46,6 +46,7 @@ function filtersFromUrl(): CarFilter {
   if (sp.get("search")) f.search = sp.get("search")!;
   if (sp.get("minPrice")) f.minPrice = Number(sp.get("minPrice")) || 0;
   if (sp.get("maxPrice")) f.maxPrice = Number(sp.get("maxPrice")) || 100000;
+  if (sp.get("minRange")) f.minRange = Number(sp.get("minRange")) || 0;
   const sort = sp.get("sort");
   if (sort === "price_asc" || sort === "price_desc" || sort === "year_desc" || sort === "range_desc") {
     f.sort = sort;
@@ -61,6 +62,7 @@ function filtersToParams(filters: CarFilter): URLSearchParams {
   if (filters.status) params.set("status", filters.status);
   if (filters.minPrice) params.set("minPrice", String(filters.minPrice));
   if (filters.maxPrice && filters.maxPrice < 100000) params.set("maxPrice", String(filters.maxPrice));
+  if (filters.minRange) params.set("minRange", String(filters.minRange));
   if (filters.search) params.set("search", filters.search);
   if (filters.sort) params.set("sort", filters.sort);
   return params;

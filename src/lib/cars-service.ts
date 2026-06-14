@@ -23,6 +23,7 @@ export async function getCars(filters?: CarFilter, adminMode = false, archived =
     if (filters?.status) q = q.eq("status", filters.status);
     if (filters?.minPrice) q = q.gte("price_usd", filters.minPrice);
     if (filters?.maxPrice && filters.maxPrice < 100000) q = q.lte("price_usd", filters.maxPrice);
+    if (filters?.minRange) q = q.gte("range_km", filters.minRange);
     if (filters?.search) {
       // Вырезаем метасимволы PostgREST-фильтра (запятые, скобки, кавычки,
       // wildcard-символы), чтобы пользовательский ввод нельзя было превратить
@@ -151,6 +152,7 @@ function filterCarsLocal(cars: Car[], filters?: CarFilter, adminMode = false): C
   if (filters?.minPrice) result = result.filter((c) => c.price_usd >= filters.minPrice!);
   if (filters?.maxPrice && filters.maxPrice < 100000)
     result = result.filter((c) => c.price_usd <= filters.maxPrice!);
+  if (filters?.minRange) result = result.filter((c) => c.range_km >= filters.minRange!);
 
   const statusOrder: Record<string, number> = { in_stock: 0, in_transit: 1, on_order: 2 };
 

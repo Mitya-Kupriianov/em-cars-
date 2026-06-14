@@ -27,6 +27,7 @@ export async function GET(req: Request) {
     status: searchParams.get("status") || undefined,
     minPrice: searchParams.get("minPrice") ? Number(searchParams.get("minPrice")) : undefined,
     maxPrice: searchParams.get("maxPrice") ? Number(searchParams.get("maxPrice")) : undefined,
+    minRange: searchParams.get("minRange") ? Number(searchParams.get("minRange")) : undefined,
     search: searchParams.get("search") || undefined,
     sort: (searchParams.get("sort") as "price_asc" | "price_desc" | "year_desc" | "range_desc") || undefined,
   };

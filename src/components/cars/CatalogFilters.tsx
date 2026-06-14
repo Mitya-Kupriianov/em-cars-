@@ -63,7 +63,12 @@ export function CatalogFilters({ filters, onChange, onReset }: CatalogFiltersPro
   const hasActiveFilters =
     filters.brand || filters.model || filters.bodyType || filters.status || filters.search ||
     (filters.minPrice && filters.minPrice > 0) ||
-    (filters.maxPrice && filters.maxPrice < 100000);
+    (filters.maxPrice && filters.maxPrice < 100000) ||
+    (filters.minRange && filters.minRange > 0);
+
+  const rangeLabel = locale === "ru" ? "Запас хода" : locale === "en" ? "Range" : "Запас ходу";
+  const fromLabel = locale === "ru" ? "от" : locale === "en" ? "from" : "від";
+  const anyLabel = locale === "ru" ? "любой" : locale === "en" ? "any" : "будь-який";
 
   return (
     <div className="rounded-xl border bg-card p-5">
@@ -200,6 +205,24 @@ export function CatalogFilters({ filters, onChange, onReset }: CatalogFiltersPro
             step={1000}
             value={[filters.minPrice || 0, filters.maxPrice || 100000]}
             onValueChange={(val) => { const arr = val as number[]; onChange({ ...filters, minPrice: arr[0], maxPrice: arr[1] }); }}
+            className="mt-2"
+          />
+        </div>
+
+        {/* Range (min) */}
+        <div>
+          <label className="mb-3 flex items-center justify-between text-sm font-medium">
+            <span>{rangeLabel}</span>
+            <span className="text-xs text-muted-foreground">
+              {filters.minRange ? `${fromLabel} ${filters.minRange} ${t("catalog.km")}` : anyLabel}
+            </span>
+          </label>
+          <Slider
+            min={0}
+            max={700}
+            step={50}
+            value={[filters.minRange || 0]}
+            onValueChange={(val) => { const arr = val as number[]; onChange({ ...filters, minRange: arr[0] || undefined }); }}
             className="mt-2"
           />
         </div>

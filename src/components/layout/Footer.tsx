@@ -5,12 +5,19 @@ import { Phone, Mail, MapPin } from "lucide-react";
 import { useLocale } from "@/hooks/use-locale";
 
 export function Footer() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+
+  const servicesLabels = {
+    ua: { heading: "Послуги", service: "Автосервіс", charging: "Зарядні станції", financing: "Кредит / Лізинг", faq: "Часті питання" },
+    ru: { heading: "Услуги", service: "Автосервис", charging: "Зарядные станции", financing: "Кредит / Лизинг", faq: "Частые вопросы" },
+    en: { heading: "Services", service: "Service", charging: "Charging stations", financing: "Financing", faq: "FAQ" },
+  };
+  const s = servicesLabels[locale as "ua" | "ru" | "en"] ?? servicesLabels.ua;
 
   return (
     <footer className="border-t bg-[#15171B] text-zinc-300">
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div>
             <Link href="/" className="mb-4 flex items-center gap-2">
               <img src="/logo.PNG" alt="EM" className="h-16 w-auto brightness-0 invert" />
@@ -37,6 +44,26 @@ export function Footer() {
               </Link>
               <Link href="/contacts" className="text-sm hover:text-white transition-colors">
                 {t("nav.contacts")}
+              </Link>
+            </nav>
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
+              {s.heading}
+            </h3>
+            <nav className="flex flex-col gap-2">
+              <Link href="/service" className="text-sm hover:text-white transition-colors">
+                {s.service}
+              </Link>
+              <Link href="/charging" className="text-sm hover:text-white transition-colors">
+                {s.charging}
+              </Link>
+              <Link href="/financing" className="text-sm hover:text-white transition-colors">
+                {s.financing}
+              </Link>
+              <Link href="/faq" className="text-sm hover:text-white transition-colors">
+                {s.faq}
               </Link>
             </nav>
           </div>

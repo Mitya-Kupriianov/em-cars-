@@ -66,7 +66,7 @@ export interface ContactRequest {
   email?: string;
   car_id?: string;
   message?: string;
-  type: "callback" | "test_drive" | "credit" | "general";
+  type: "callback" | "test_drive" | "credit" | "trade_in" | "general";
   status?: "new" | "in_progress" | "done";
   created_at?: string;
 }

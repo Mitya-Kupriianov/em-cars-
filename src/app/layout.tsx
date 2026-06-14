@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 import { LocaleProvider, type Locale } from "@/hooks/use-locale";
 import { CompareProvider } from "@/hooks/use-compare";
+import { FloatingContact } from "@/components/layout/FloatingContact";
 import "./globals.css";
 
 const inter = Inter({
@@ -40,6 +41,7 @@ export default async function RootLayout({
           <ClerkProvider>
             <CompareProvider>
               {children}
+              <FloatingContact />
             </CompareProvider>
           </ClerkProvider>
         </LocaleProvider>

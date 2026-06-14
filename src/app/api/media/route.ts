@@ -4,13 +4,33 @@ import { createSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase";
 
 const BUCKET = "car-images";
 
+const ALLOWED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "image/avif",
+];
+const MAX_IMAGE_BYTES = 15 * 1024 * 1024; // 15 МБ
+
+/** Запрещаем выход за пределы бакета и абсолютные пути. */
+function isUnsafePath(p: string): boolean {
+  return p.includes("..") || p.startsWith("/") || p.includes("\\");
+}
+
 export async function GET(req: Request) {
+  const gate = await requireAdmin("editContent");
+  if (gate instanceof NextResponse) return gate;
+
   if (!isSupabaseConfigured()) {
     return NextResponse.json({ error: "Supabase not configured" }, { status: 503 });
   }
 
   const { searchParams } = new URL(req.url);
   const path = searchParams.get("path") || "";
+  if (isUnsafePath(path)) {
+    return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+  }
 
   const supabase = createSupabaseAdmin();
   const { data, error } = await supabase.storage.from(BUCKET).list(path, {
@@ -59,6 +79,9 @@ export async function POST(req: Request) {
       if (!path) {
         return NextResponse.json({ error: "Path is required" }, { status: 400 });
       }
+      if (isUnsafePath(path)) {
+        return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+      }
       const placeholder = `${path}/.emptyFolderPlaceholder`;
       const { error } = await supabase.storage
         .from(BUCKET)
@@ -75,6 +98,9 @@ export async function POST(req: Request) {
     if (action === "rename") {
       if (!path || !newName) {
         return NextResponse.json({ error: "Path and newName required" }, { status: 400 });
+      }
+      if (isUnsafePath(path) || newName.includes("/") || newName.includes("..") || newName.includes("\\")) {
+        return NextResponse.json({ error: "Invalid path" }, { status: 400 });
       }
       const dir = path.split("/").slice(0, -1).join("/");
       const newPath = dir ? `${dir}/${newName}` : newName;
@@ -95,10 +121,21 @@ export async function POST(req: Request) {
   if (!files.length) {
     return NextResponse.json({ error: "No files provided" }, { status: 400 });
   }
+  if (folder && isUnsafePath(folder)) {
+    return NextResponse.json({ error: "Invalid folder" }, { status: 400 });
+  }
 
   const results = [];
 
   for (const file of files) {
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      results.push({ name: file.name, error: "Непідтримуваний тип файлу" });
+      continue;
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      results.push({ name: file.name, error: "Файл завеликий" });
+      continue;
+    }
     const ext = file.name.split(".").pop() || "jpg";
     const safeName = file.name
       .replace(/[^a-zA-Z0-9._-]/g, "_")

@@ -1,12 +1,25 @@
 import { NextResponse } from "next/server";
-import { requireAdmin, requireOwner } from "@/lib/admin-auth";
+import { requireAdmin, requireOwner, getAdminUser } from "@/lib/admin-auth";
 import { createSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase";
 import { getCars, createCar, updateCar, missingColumnFromError } from "@/lib/cars-service";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const adminMode = searchParams.get("admin") === "1";
-  const archived = searchParams.get("archived") === "1";
+  const wantsAdmin = searchParams.get("admin") === "1";
+  const wantsArchived = searchParams.get("archived") === "1";
+
+  // Скрытые (is_visible=false) и архивные машины доступны только админам.
+  // Режим определяется по сессии, а не по query-параметру.
+  let adminMode = false;
+  let archived = false;
+  if (wantsAdmin || wantsArchived) {
+    const admin = await getAdminUser();
+    if (admin) {
+      adminMode = wantsAdmin;
+      archived = wantsArchived;
+    }
+  }
+
   const filters = {
     brand: searchParams.get("brand") || undefined,
     model: searchParams.get("model") || undefined,

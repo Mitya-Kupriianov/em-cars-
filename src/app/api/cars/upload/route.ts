@@ -18,7 +18,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
   }
 
-  const ext = file.name.split(".").pop() || "jpg";
+  const ALLOWED = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif"];
+  if (!ALLOWED.includes(file.type)) {
+    return NextResponse.json({ error: "Непідтримуваний тип файлу" }, { status: 400 });
+  }
+  if (file.size > 15 * 1024 * 1024) {
+    return NextResponse.json({ error: "Файл завеликий (макс. 15 МБ)" }, { status: 400 });
+  }
+  if (carId && (carId.includes("..") || carId.includes("/") || carId.includes("\\"))) {
+    return NextResponse.json({ error: "Invalid carId" }, { status: 400 });
+  }
+
+  const ext = (file.name.split(".").pop() || "jpg").replace(/[^a-zA-Z0-9]/g, "").slice(0, 5) || "jpg";
   const fileName = `${carId || "temp"}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
 
   const supabase = createSupabaseAdmin();

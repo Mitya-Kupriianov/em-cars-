@@ -279,7 +279,7 @@ export default function AdminCarsPage() {
                         className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
                           car.is_promo
                             ? "bg-pink-100 text-pink-700 hover:bg-pink-200"
-                            : "bg-muted text-muted-foreground hover:bg-muted"
+                            : "bg-muted text-muted-foreground hover:bg-muted/80"
                         }`}
                       >
                         {togglingPromo === car.id ? (
@@ -302,7 +302,7 @@ export default function AdminCarsPage() {
                         className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
                           car.is_visible !== false
                             ? "bg-brand-100 text-brand-700 hover:bg-brand-200"
-                            : "bg-muted text-muted-foreground hover:bg-muted"
+                            : "bg-muted text-muted-foreground hover:bg-muted/80"
                         }`}
                       >
                         {toggling === car.id ? (

@@ -195,7 +195,7 @@ export default function ReviewsAdminPage() {
               className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                 sourceType === "youtube"
                   ? "border-brand-600 bg-brand-50 text-brand-700"
-                  : "border-border text-muted-foreground hover:border-border"
+                  : "border-border text-muted-foreground hover:border-muted-foreground"
               }`}
             >
               <PlayCircle className="h-4 w-4" /> YouTube
@@ -205,7 +205,7 @@ export default function ReviewsAdminPage() {
               className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                 sourceType === "instagram"
                   ? "border-brand-600 bg-brand-50 text-brand-700"
-                  : "border-border text-muted-foreground hover:border-border"
+                  : "border-border text-muted-foreground hover:border-muted-foreground"
               }`}
             >
               <Instagram className="h-4 w-4" /> Instagram
@@ -215,7 +215,7 @@ export default function ReviewsAdminPage() {
               className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                 sourceType === "file"
                   ? "border-brand-600 bg-brand-50 text-brand-700"
-                  : "border-border text-muted-foreground hover:border-border"
+                  : "border-border text-muted-foreground hover:border-muted-foreground"
               }`}
             >
               <FileVideo className="h-4 w-4" /> Завантажити файл

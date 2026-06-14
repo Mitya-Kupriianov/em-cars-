@@ -4,12 +4,11 @@ import { useState } from "react";
 import { MessageCircle, X, Phone, Send } from "lucide-react";
 import { useLocale } from "@/hooks/use-locale";
 
-// Контакти для месенджерів. Замініть на реальні (особливо Telegram-username).
+// Реальні канали зв'язку (з linktr.ee/electromotorstop).
 const PHONE = "+380966789000";
 const CHANNELS = [
-  { key: "telegram", label: "Telegram", href: `https://t.me/${PHONE}`, color: "#229ED9", Icon: Send },
-  { key: "viber", label: "Viber", href: `viber://chat?number=${encodeURIComponent(PHONE)}`, color: "#7360F2", Icon: MessageCircle },
-  { key: "whatsapp", label: "WhatsApp", href: `https://wa.me/${PHONE.replace(/\D/g, "")}`, color: "#25D366", Icon: MessageCircle },
+  { key: "telegram", label: "Telegram", href: "https://t.me/electromotorstop", color: "#229ED9", Icon: Send },
+  { key: "viber", label: "Viber", href: "https://share.cdn.viber.com/pg_download?id=0-04-05-00580e61de8594db02c53972408fad23a10c60a2f8fda2c8078d5d9c8bd1190a", color: "#7360F2", Icon: MessageCircle },
   { key: "phone", label: PHONE, href: `tel:${PHONE}`, color: "#2B57A5", Icon: Phone },
 ];
 

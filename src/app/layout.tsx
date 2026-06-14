@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 import { LocaleProvider, type Locale } from "@/hooks/use-locale";
 import { CompareProvider } from "@/hooks/use-compare";
+import { FavoritesProvider } from "@/hooks/use-favorites";
 import { FloatingContact } from "@/components/layout/FloatingContact";
 import "./globals.css";
 
@@ -40,8 +41,10 @@ export default async function RootLayout({
         <LocaleProvider initialLocale={locale}>
           <ClerkProvider>
             <CompareProvider>
-              {children}
-              <FloatingContact />
+              <FavoritesProvider>
+                {children}
+                <FloatingContact />
+              </FavoritesProvider>
             </CompareProvider>
           </ClerkProvider>
         </LocaleProvider>

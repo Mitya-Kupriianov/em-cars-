@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
-import { Menu, Phone, X, Globe, Scale } from "lucide-react";
+import { Menu, Phone, X, Globe, Scale, Heart } from "lucide-react";
 import { useLocale, type Locale } from "@/hooks/use-locale";
 import { useCompare } from "@/hooks/use-compare";
+import { useFavorites } from "@/hooks/use-favorites";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 const LANGUAGES: { code: Locale; label: string; flag: string }[] = [
@@ -18,6 +19,8 @@ export function Header() {
   const { t, locale, setLocale } = useLocale();
   const router = useRouter();
   const { count } = useCompare();
+  const { count: favCount } = useFavorites();
+  const favLabel = locale === "ru" ? "Избранное" : locale === "en" ? "Favorites" : "Обране";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
@@ -105,6 +108,21 @@ export function Header() {
               )}
             </div>
 
+            {/* Favorites (heart) */}
+            <Link
+              href="/favorites"
+              className="relative flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-muted"
+              aria-label={favLabel}
+              title={favLabel}
+            >
+              <Heart className="h-4 w-4" />
+              {favCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#F23645] px-1 text-[10px] font-bold leading-none text-white">
+                  {favCount}
+                </span>
+              )}
+            </Link>
+
             {/* Compare (scales) */}
             <button
               onClick={openCompare}
@@ -170,6 +188,21 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <Link
+              href="/favorites"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-between rounded-lg px-3 py-3 text-lg font-medium transition-colors hover:bg-muted"
+            >
+              <span className="flex items-center gap-2">
+                <Heart className="h-5 w-5" />
+                {favLabel}
+              </span>
+              {favCount > 0 && (
+                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#F23645] px-1.5 text-xs font-bold text-white">
+                  {favCount}
+                </span>
+              )}
+            </Link>
             <a
               href="tel:+380966789000"
               className="mt-2 flex items-center gap-2 rounded-lg px-3 py-3 text-lg font-medium text-brand"

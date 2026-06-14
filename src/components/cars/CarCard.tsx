@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Battery, Gauge, Zap, MapPin, Scale } from "lucide-react";
+import { Battery, Gauge, Zap, MapPin, Scale, Heart } from "lucide-react";
 import { CarImage } from "@/components/ui/car-image";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Car } from "@/types/car";
 import { useLocale } from "@/hooks/use-locale";
 import { useCompare } from "@/hooks/use-compare";
+import { useFavorites } from "@/hooks/use-favorites";
 import { localizedCity } from "@/lib/utils";
 
 interface CarCardProps {
@@ -17,9 +18,12 @@ interface CarCardProps {
 export function CarCard({ car }: CarCardProps) {
   const { t, locale } = useLocale();
   const { has, toggle, isFull, hasSpecs } = useCompare();
+  const { has: hasFav, toggle: toggleFav } = useFavorites();
   const city = localizedCity(car, locale);
   const comparable = hasSpecs(car.brand, car.model);
   const inCompare = has(car.id);
+  const inFav = hasFav(car.id);
+  const favLabel = locale === "ru" ? "В избранное" : locale === "en" ? "Add to favorites" : "В обране";
 
   const statusColor: Record<string, string> = {
     in_stock: "bg-emerald-500 text-white",
@@ -67,22 +71,37 @@ export function CarCard({ car }: CarCardProps) {
             )}
           </div>
 
-          {comparable && (
+          <div className="absolute bottom-3 right-3 z-10 flex gap-2">
+            {comparable && (
+              <button
+                type="button"
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(car.id); }}
+                disabled={!inCompare && isFull}
+                aria-label={inCompare ? t("compare.remove") : t("compare.add")}
+                title={inCompare ? t("compare.remove") : t("compare.add")}
+                className={`flex h-9 w-9 items-center justify-center rounded-full shadow-md transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
+                  inCompare
+                    ? "scale-110 bg-brand-600 text-white ring-2 ring-white/70"
+                    : "bg-white/90 text-zinc-700 hover:bg-white hover:scale-105"
+                }`}
+              >
+                <Scale className="h-4 w-4" />
+              </button>
+            )}
             <button
               type="button"
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(car.id); }}
-              disabled={!inCompare && isFull}
-              aria-label={inCompare ? t("compare.remove") : t("compare.add")}
-              title={inCompare ? t("compare.remove") : t("compare.add")}
-              className={`absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full shadow-md transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
-                inCompare
-                  ? "scale-110 bg-brand-600 text-white ring-2 ring-white/70"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleFav(car.id); }}
+              aria-label={favLabel}
+              title={favLabel}
+              className={`flex h-9 w-9 items-center justify-center rounded-full shadow-md transition-all duration-200 ${
+                inFav
+                  ? "scale-110 bg-[#F23645] text-white ring-2 ring-white/70"
                   : "bg-white/90 text-zinc-700 hover:bg-white hover:scale-105"
               }`}
             >
-              <Scale className="h-4 w-4" />
+              <Heart className={`h-4 w-4 ${inFav ? "fill-current" : ""}`} />
             </button>
-          )}
+          </div>
         </div>
 
         <CardContent className="flex flex-1 flex-col p-4">

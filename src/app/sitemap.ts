@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getCars } from "@/lib/cars-service";
+import { articles } from "@/lib/blog";
 
 const BASE_URL = "https://electro-motors.top";
 
@@ -16,6 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/financing",
     "/test-drive",
     "/trade-in",
+    "/blog",
   ];
 
   const now = new Date();
@@ -40,6 +42,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch {
     // Supabase unavailable at build time — ship the static sitemap.
+  }
+
+  // Blog articles (static, file-based).
+  for (const a of articles) {
+    entries.push({
+      url: `${BASE_URL}/blog/${a.slug}`,
+      lastModified: new Date(a.date),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    });
   }
 
   return entries;

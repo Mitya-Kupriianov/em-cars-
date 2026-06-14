@@ -17,7 +17,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
   }
 
-  const ext = file.name.split(".").pop() || "mp4";
+  const ALLOWED = ["video/mp4", "video/quicktime", "video/webm"];
+  if (!ALLOWED.includes(file.type)) {
+    return NextResponse.json({ error: "Непідтримуваний тип відео" }, { status: 400 });
+  }
+  if (file.size > 500 * 1024 * 1024) {
+    return NextResponse.json({ error: "Відео завелике (макс. 500 МБ)" }, { status: 400 });
+  }
+
+  const ext = (file.name.split(".").pop() || "mp4").replace(/[^a-zA-Z0-9]/g, "").slice(0, 5) || "mp4";
   const fileName = `reviews/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
 
   const supabase = createSupabaseAdmin();

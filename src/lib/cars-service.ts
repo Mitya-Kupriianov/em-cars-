@@ -24,7 +24,13 @@ export async function getCars(filters?: CarFilter, adminMode = false, archived =
     if (filters?.minPrice) q = q.gte("price_usd", filters.minPrice);
     if (filters?.maxPrice && filters.maxPrice < 100000) q = q.lte("price_usd", filters.maxPrice);
     if (filters?.search) {
-      q = q.or(`brand.ilike.%${filters.search}%,model.ilike.%${filters.search}%`);
+      // Вырезаем метасимволы PostgREST-фильтра (запятые, скобки, кавычки,
+      // wildcard-символы), чтобы пользовательский ввод нельзя было превратить
+      // в дополнительные условия фильтра.
+      const safe = filters.search.replace(/[,()%*\\"`]/g, " ").trim();
+      if (safe) {
+        q = q.or(`brand.ilike.%${safe}%,model.ilike.%${safe}%`);
+      }
     }
     switch (filters?.sort) {
       case "price_asc": q = q.order("price_usd", { ascending: true }); break;

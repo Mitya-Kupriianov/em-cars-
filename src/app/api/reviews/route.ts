@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireOwner } from "@/lib/admin-auth";
+import { requireOwner, getAdminUser } from "@/lib/admin-auth";
 import { createSupabaseAdmin, createSupabaseBrowser, isSupabaseConfigured } from "@/lib/supabase";
 
 export async function GET(req: Request) {
@@ -8,7 +8,8 @@ export async function GET(req: Request) {
   }
 
   const { searchParams } = new URL(req.url);
-  const admin = searchParams.get("admin") === "1";
+  // Админ-режим (все отзывы, включая скрытые) — только для авторизованных.
+  const admin = searchParams.get("admin") === "1" ? !!(await getAdminUser()) : false;
   const supabase = admin ? createSupabaseAdmin() : createSupabaseBrowser();
 
   let query = supabase.from("reviews").select("*").order("sort_order", { ascending: true });

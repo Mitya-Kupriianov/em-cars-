@@ -31,7 +31,7 @@ export default function AdminDashboard() {
       <h2 className="mb-6 text-2xl font-bold">Dashboard</h2>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-xl border bg-white p-5">
+          <div key={s.label} className="rounded-xl border bg-card p-5">
             <div className="mb-3 flex items-center justify-between">
               <span className="text-sm text-muted-foreground">{s.label}</span>
               <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${s.color}`}>

@@ -293,9 +293,9 @@ export default function AdminBrandsPage() {
         </Button>
       </form>
 
-      <div className="rounded-xl border bg-white">
+      <div className="rounded-xl border bg-card">
         {brands.map((brand) => (
-          <div key={brand.id} className="flex items-center justify-between border-b px-4 py-3 last:border-0 hover:bg-zinc-50">
+          <div key={brand.id} className="flex items-center justify-between border-b px-4 py-3 last:border-0 hover:bg-muted">
             <div className="flex items-center gap-2">
               <span className="font-medium">{brand.name}</span>
               {brand.models?.length > 0 && (
@@ -362,7 +362,7 @@ export default function AdminBrandsPage() {
                     {editBrand.models.map((model) => (
                       <div key={model.id}>
                         {/* Model row */}
-                        <div className="flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-zinc-50">
+                        <div className="flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-muted">
                           {editingModelId === model.id ? (
                             <>
                               <Input value={editingModelName} onChange={(e) => setEditingModelName(e.target.value)} className="h-7 flex-1 text-sm" autoFocus
@@ -404,7 +404,7 @@ export default function AdminBrandsPage() {
 
                         {/* Trims (expanded) */}
                         {expandedModelId === model.id && (
-                          <div className="ml-6 mt-1 mb-2 rounded-lg border border-dashed bg-zinc-50/50 p-2">
+                          <div className="ml-6 mt-1 mb-2 rounded-lg border border-dashed bg-muted/50 p-2">
                             <div className="mb-2 flex items-center gap-1 text-xs font-medium text-muted-foreground">
                               <Settings2 className="h-3 w-3" />
                               Комплектації
@@ -422,7 +422,7 @@ export default function AdminBrandsPage() {
                             ) : (
                               <div className="space-y-0.5">
                                 {model.trims!.map((trim) => (
-                                  <div key={trim.id} className="flex items-center gap-1.5 rounded px-1.5 py-1 hover:bg-white">
+                                  <div key={trim.id} className="flex items-center gap-1.5 rounded px-1.5 py-1 hover:bg-card">
                                     {editingTrimId === trim.id ? (
                                       <>
                                         <Input value={editingTrimName} onChange={(e) => setEditingTrimName(e.target.value)} className="h-6 flex-1 text-xs" autoFocus

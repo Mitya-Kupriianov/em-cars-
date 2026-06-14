@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Car, MessageSquare, LayoutDashboard, ArrowLeft, Tags, ImageIcon, FileSpreadsheet, SlidersHorizontal, MapPin, ClipboardList, PlayCircle, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import type { Permission, Role } from "@/lib/admin-auth";
 
 // requires: какое право нужно, чтобы видеть пункт меню (undefined = виден всем админам)
@@ -35,7 +36,7 @@ export default function AdminShell({
   const visibleItems = navItems.filter((item) => !item.requires || permissions.includes(item.requires));
 
   return (
-    <div className="light flex min-h-screen bg-background text-foreground">
+    <div className="flex min-h-screen bg-background text-foreground">
       <aside className="fixed left-0 top-0 z-40 flex h-full w-60 flex-col border-r bg-zinc-950 text-white">
         <div className="flex h-14 items-center gap-2 border-b border-zinc-800 px-4">
           <img src="/logo.png" alt="EM" className="h-10 w-auto brightness-0 invert" />
@@ -87,8 +88,9 @@ export default function AdminShell({
       </aside>
 
       <div className="ml-60 flex-1">
-        <header className="sticky top-0 z-30 flex h-14 items-center border-b bg-white px-6">
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b bg-card px-6">
           <h1 className="text-sm font-semibold text-muted-foreground">Панель управління</h1>
+          <ThemeToggle />
         </header>
         <main className="p-6">{children}</main>
       </div>

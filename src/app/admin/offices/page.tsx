@@ -147,7 +147,7 @@ export default function OfficesPage() {
       </div>
 
       {offices.length === 0 && (
-        <div className="rounded-xl border bg-white p-12 text-center">
+        <div className="rounded-xl border bg-card p-12 text-center">
           <MapPin className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
           <p className="text-muted-foreground">Немає офісів. Додайте перший офіс.</p>
         </div>
@@ -155,7 +155,7 @@ export default function OfficesPage() {
 
       <div className="space-y-4">
         {offices.map((office, index) => (
-          <div key={office.id || `new-${index}`} className="rounded-xl border bg-white p-6">
+          <div key={office.id || `new-${index}`} className="rounded-xl border bg-card p-6">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <GripVertical className="h-5 w-5 text-muted-foreground" />

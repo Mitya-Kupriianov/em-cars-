@@ -368,7 +368,7 @@ export default function AdminSpecsPage() {
             </div>
           )}
           {specs.map((spec) => (
-            <div key={spec.id} className="flex items-center justify-between rounded-lg border bg-white p-4">
+            <div key={spec.id} className="flex items-center justify-between rounded-lg border bg-card p-4">
               <div>
                 <span className="font-semibold">{spec.brand}</span>{" "}
                 <span className="text-muted-foreground">{spec.model}</span>
@@ -379,7 +379,7 @@ export default function AdminSpecsPage() {
                 )}
                 <div className="mt-1 flex flex-wrap gap-1">
                   {spec.spec_sheet.trims?.map((t, i) => (
-                    <span key={i} className="rounded bg-zinc-100 px-2 py-0.5 text-xs">{t}</span>
+                    <span key={i} className="rounded bg-muted px-2 py-0.5 text-xs">{t}</span>
                   ))}
                 </div>
                 <div className="mt-1 text-xs text-muted-foreground">
@@ -410,7 +410,7 @@ export default function AdminSpecsPage() {
 
       {/* Editor */}
       {isEditorOpen && (
-        <div className="space-y-6 rounded-xl border bg-white p-6">
+        <div className="space-y-6 rounded-xl border bg-card p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">{editing ? "Редагування" : "Нова специфікація"}</h2>
             <div className="flex items-center gap-3">
@@ -421,7 +421,7 @@ export default function AdminSpecsPage() {
                     key={l}
                     onClick={() => setEditLang(l)}
                     className={`rounded-md px-3 py-1 text-sm font-medium transition-colors ${
-                      editLang === l ? "bg-brand-600 text-white" : "text-muted-foreground hover:bg-zinc-100"
+                      editLang === l ? "bg-brand-600 text-white" : "text-muted-foreground hover:bg-muted"
                     }`}
                   >
                     {l.toUpperCase()}
@@ -501,7 +501,7 @@ export default function AdminSpecsPage() {
               return (
                 <div key={catIndex} className="rounded-lg border">
                   <div
-                    className="flex cursor-pointer items-center gap-2 bg-zinc-50 px-4 py-3"
+                    className="flex cursor-pointer items-center gap-2 bg-muted px-4 py-3"
                     onClick={() => toggleCat(catIndex)}
                   >
                     {expandedCats.has(catIndex) ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
@@ -531,7 +531,7 @@ export default function AdminSpecsPage() {
                         <div className="overflow-x-auto">
                           <table className="w-full text-sm">
                             <thead>
-                              <tr className="border-b bg-zinc-50">
+                              <tr className="border-b bg-muted">
                                 <th className="px-2 py-1.5 text-left font-medium">Параметр ({langLabel})</th>
                                 {sheet.trims.map((t, i) => (
                                   <th key={i} className="px-2 py-1.5 text-left font-medium">
@@ -593,7 +593,7 @@ export default function AdminSpecsPage() {
             <select
               value={exportTrim}
               onChange={(e) => setExportTrim(e.target.value)}
-              className="h-9 rounded-md border bg-white px-2 text-sm"
+              className="h-9 rounded-md border bg-card px-2 text-sm"
             >
               <option value="all">Усі комплектації</option>
               {sheet.trims.map((t, i) => (

@@ -180,7 +180,7 @@ export default function ReviewsAdminPage() {
 
       {/* Edit form */}
       {editing && (
-        <div className="mb-6 rounded-xl border bg-white p-5 shadow-sm">
+        <div className="mb-6 rounded-xl border bg-card p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-semibold">{editing.id ? "Редагувати" : "Нове відео"}</h3>
             <button onClick={() => setEditing(null)}>
@@ -195,7 +195,7 @@ export default function ReviewsAdminPage() {
               className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                 sourceType === "youtube"
                   ? "border-brand-600 bg-brand-50 text-brand-700"
-                  : "border-zinc-200 text-muted-foreground hover:border-zinc-300"
+                  : "border-border text-muted-foreground hover:border-border"
               }`}
             >
               <PlayCircle className="h-4 w-4" /> YouTube
@@ -205,7 +205,7 @@ export default function ReviewsAdminPage() {
               className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                 sourceType === "instagram"
                   ? "border-brand-600 bg-brand-50 text-brand-700"
-                  : "border-zinc-200 text-muted-foreground hover:border-zinc-300"
+                  : "border-border text-muted-foreground hover:border-border"
               }`}
             >
               <Instagram className="h-4 w-4" /> Instagram
@@ -215,7 +215,7 @@ export default function ReviewsAdminPage() {
               className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                 sourceType === "file"
                   ? "border-brand-600 bg-brand-50 text-brand-700"
-                  : "border-zinc-200 text-muted-foreground hover:border-zinc-300"
+                  : "border-border text-muted-foreground hover:border-border"
               }`}
             >
               <FileVideo className="h-4 w-4" /> Завантажити файл
@@ -249,9 +249,9 @@ export default function ReviewsAdminPage() {
               <div className="space-y-1 sm:col-span-2">
                 <Label>Відео файл (mp4, mov, webm)</Label>
                 {editing.video_url ? (
-                  <div className="flex items-center gap-3 rounded-lg border bg-zinc-50 px-3 py-2">
+                  <div className="flex items-center gap-3 rounded-lg border bg-muted px-3 py-2">
                     <FileVideo className="h-4 w-4 shrink-0 text-brand-600" />
-                    <span className="flex-1 truncate text-sm text-zinc-700">{editing.video_url.split("/").pop()}</span>
+                    <span className="flex-1 truncate text-sm text-foreground">{editing.video_url.split("/").pop()}</span>
                     <button
                       onClick={() => setEditing({ ...editing, video_url: "" })}
                       className="text-muted-foreground hover:text-red-500"
@@ -261,7 +261,7 @@ export default function ReviewsAdminPage() {
                   </div>
                 ) : (
                   <div
-                    className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-zinc-200 py-8 transition-colors hover:border-brand-400 hover:bg-brand-50"
+                    className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border py-8 transition-colors hover:border-brand-400 hover:bg-brand-50"
                     onClick={() => fileRef.current?.click()}
                     onDragOver={(e) => e.preventDefault()}
                     onDrop={(e) => {
@@ -277,9 +277,9 @@ export default function ReviewsAdminPage() {
                       </>
                     ) : (
                       <>
-                        <Upload className="h-6 w-6 text-zinc-400" />
+                        <Upload className="h-6 w-6 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">Натисніть або перетягніть відео</span>
-                        <span className="text-xs text-zinc-400">MP4, MOV, WebM · до 500 МБ</span>
+                        <span className="text-xs text-muted-foreground">MP4, MOV, WebM · до 500 МБ</span>
                       </>
                     )}
                   </div>
@@ -412,8 +412,8 @@ export default function ReviewsAdminPage() {
             : "—";
 
           return (
-            <div key={r.id} className="flex items-center gap-4 rounded-xl border bg-white p-4">
-              <div className="relative h-16 w-28 shrink-0 overflow-hidden rounded-lg bg-zinc-100">
+            <div key={r.id} className="flex items-center gap-4 rounded-xl border bg-card p-4">
+              <div className="relative h-16 w-28 shrink-0 overflow-hidden rounded-lg bg-muted">
                 {previewThumb ? (
                   <img src={previewThumb} alt={label} className="h-full w-full object-cover" />
                 ) : r.video_url ? (
@@ -424,7 +424,7 @@ export default function ReviewsAdminPage() {
                   </div>
                 ) : (
                   <div className="flex h-full w-full items-center justify-center">
-                    <FileVideo className="h-6 w-6 text-zinc-400" />
+                    <FileVideo className="h-6 w-6 text-muted-foreground" />
                   </div>
                 )}
               </div>
@@ -432,7 +432,7 @@ export default function ReviewsAdminPage() {
                 <p className="font-medium truncate">{label}</p>
                 <p className="text-xs text-muted-foreground">
                   {tag} · #{r.sort_order} ·{" "}
-                  <span className={r.is_active ? "text-brand-600" : "text-zinc-400"}>
+                  <span className={r.is_active ? "text-brand-600" : "text-muted-foreground"}>
                     {r.is_active ? "активне" : "приховане"}
                   </span>
                 </p>

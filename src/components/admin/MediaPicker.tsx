@@ -269,7 +269,7 @@ export function MediaPicker({ open, onClose, onSelect, multiple = true }: MediaP
               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
                 allFilesSelected
                   ? "bg-brand-100 text-brand-700"
-                  : "text-muted-foreground hover:bg-zinc-100 hover:text-foreground"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
               }`}
             >
               <CheckCheck className="h-4 w-4" />
@@ -335,7 +335,7 @@ export function MediaPicker({ open, onClose, onSelect, multiple = true }: MediaP
                       <button
                         key={item.path}
                         onClick={() => navigateTo(item.path)}
-                        className="flex flex-col items-center gap-1 rounded-lg border bg-white p-3 text-center transition-colors hover:bg-zinc-50"
+                        className="flex flex-col items-center gap-1 rounded-lg border bg-card p-3 text-center transition-colors hover:bg-muted"
                       >
                         <Folder className="h-8 w-8 text-blue-400" />
                         <span className="w-full truncate text-xs font-medium">
@@ -360,7 +360,7 @@ export function MediaPicker({ open, onClose, onSelect, multiple = true }: MediaP
                         className={`group relative cursor-pointer overflow-hidden rounded-lg border transition-all ${
                           isSelected
                             ? "border-brand-500 ring-2 ring-brand-500"
-                            : "hover:border-zinc-400"
+                            : "hover:border-border"
                         }`}
                       >
                         <div className="absolute left-1.5 top-1.5 z-10">
@@ -368,13 +368,13 @@ export function MediaPicker({ open, onClose, onSelect, multiple = true }: MediaP
                             className={`flex h-6 w-6 items-center justify-center rounded-full border-2 text-xs font-bold transition-all ${
                               isSelected
                                 ? "border-brand-600 bg-brand-600 text-white"
-                                : "border-white bg-white/60 text-transparent opacity-0 group-hover:opacity-100"
+                                : "border-white bg-card/60 text-transparent opacity-0 group-hover:opacity-100"
                             }`}
                           >
                             {isSelected ? selIndex + 1 : ""}
                           </div>
                         </div>
-                        <div className="relative aspect-square bg-zinc-100">
+                        <div className="relative aspect-square bg-muted">
                           {item.url ? (
                             <Image
                               src={item.url}

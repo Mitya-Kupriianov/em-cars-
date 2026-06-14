@@ -54,7 +54,7 @@ export function ImageGrid({ images, onChange }: ImageGridProps) {
 
   return (
     <>
-      <div className="rounded-xl border bg-white p-6">
+      <div className="rounded-xl border bg-card p-6">
         <h3 className="mb-4 font-semibold">Фотографії</h3>
         <div className="mb-4 grid grid-cols-4 gap-3">
           {images.map((url, i) => (

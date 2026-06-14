@@ -330,14 +330,14 @@ function EditCarPage() {
         <ImageGrid images={images} onChange={setImages} />
 
         {/* Brand / Model / Trim */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <h3 className="mb-4 font-semibold">Марка та модель</h3>
           <div className="mb-4 grid gap-4 sm:grid-cols-3">
             <div>
               <Label>Марка</Label>
               <Select value={brand} onValueChange={handleBrandChange}>
                 <SelectTrigger><SelectValue placeholder="Оберіть марку" /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   {brands.map((b) => (
                     <SelectItem key={b.id} value={b.name}>{b.name}</SelectItem>
                   ))}
@@ -349,7 +349,7 @@ function EditCarPage() {
               {models.length > 0 ? (
                 <Select value={model} onValueChange={(v) => v && setModel(v)}>
                   <SelectTrigger><SelectValue placeholder="Оберіть модель" /></SelectTrigger>
-                  <SelectContent className="light">
+                  <SelectContent>
                     {models.map((m) => (
                       <SelectItem key={m.id} value={m.name}>{m.name}</SelectItem>
                     ))}
@@ -376,7 +376,7 @@ function EditCarPage() {
               {brandTrims.length > 0 ? (
                 <Select value={trim} onValueChange={(v) => { if (v) { setTrim(v); setTrimTouched(true); } }}>
                   <SelectTrigger><SelectValue placeholder="Оберіть комплектацію" /></SelectTrigger>
-                  <SelectContent className="light">
+                  <SelectContent>
                     {brandTrims.map((t) => (
                       <SelectItem key={t} value={t}>
                         <span className={specTrims.includes(t) ? "font-bold" : ""}>{specTrims.includes(t) ? withLabel(t, specLabel) : t}</span>
@@ -405,7 +405,7 @@ function EditCarPage() {
               <Label>Рік</Label>
               <Select value={year} onValueChange={(v) => v && setYear(v)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   {carYears.map((y) => (
                     <SelectItem key={y} value={String(y)}>{y}</SelectItem>
                   ))}
@@ -416,7 +416,7 @@ function EditCarPage() {
               <Label>Місто</Label>
               <Select value={cityUa} onValueChange={(v) => setCityUa(!v || v === "__none__" ? "" : v)}>
                 <SelectTrigger><SelectValue placeholder="Не вказано" /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   <SelectItem value="__none__">Не вказано</SelectItem>
                   {cityOptions.map((o) => (
                     <SelectItem key={o.city_ua} value={o.city_ua}>{o.city_ua}</SelectItem>
@@ -428,14 +428,14 @@ function EditCarPage() {
         </div>
 
         {/* Basic info */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <h3 className="mb-4 font-semibold">Основна інформація</h3>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <Label>Тип двигуна</Label>
               <Select value={bodyType} onValueChange={(v) => v && setBodyType(v)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   {bodyTypes.map((b) => (
                     <SelectItem key={b} value={b}>{b}</SelectItem>
                   ))}
@@ -446,7 +446,7 @@ function EditCarPage() {
               <Label>Колір</Label>
               <Select value={color} onValueChange={(v) => v && setColor(v)}>
                 <SelectTrigger><SelectValue placeholder="Оберіть колір" /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   {carColors.map((c) => (
                     <SelectItem key={c} value={c}>{c}</SelectItem>
                   ))}
@@ -457,7 +457,7 @@ function EditCarPage() {
               <Label>Статус</Label>
               <Select value={status} onValueChange={(v) => v && setStatus(v)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   <SelectItem value="in_stock">В наявності</SelectItem>
                   <SelectItem value="in_transit">В дорозі</SelectItem>
                   <SelectItem value="on_order">Під замовлення</SelectItem>
@@ -469,7 +469,7 @@ function EditCarPage() {
               <Label>Привід</Label>
               <Select value={driveType} onValueChange={(v) => v && setDriveType(v)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   <SelectItem value="FWD">FWD</SelectItem>
                   <SelectItem value="RWD">RWD</SelectItem>
                   <SelectItem value="AWD">AWD</SelectItem>
@@ -480,7 +480,7 @@ function EditCarPage() {
         </div>
 
         {/* Specs */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <h3 className="mb-4 font-semibold">Ціна та характеристики</h3>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
@@ -523,7 +523,7 @@ function EditCarPage() {
         </div>
 
         {/* Description */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <h3 className="mb-4 font-semibold">Опис</h3>
           <div className="space-y-4">
             <div>
@@ -542,7 +542,7 @@ function EditCarPage() {
         </div>
 
         {/* Features / Equipment */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <h3 className="mb-4 font-semibold">Обладнання</h3>
           <div className="mb-3 flex gap-2">
             <Input
@@ -600,7 +600,7 @@ function EditCarPage() {
         </div>
 
         {/* Visibility */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-semibold">Показувати на сайті</h3>
@@ -615,7 +615,7 @@ function EditCarPage() {
         </div>
 
         {/* Promo */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-semibold">Акційна пропозиція</h3>

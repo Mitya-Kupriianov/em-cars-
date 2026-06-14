@@ -65,7 +65,7 @@ export default function AdminRequestsPage() {
           <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
         </div>
       ) : requests.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-xl border bg-white py-20">
+        <div className="flex flex-col items-center justify-center rounded-xl border bg-card py-20">
           <MessageSquare className="mb-4 h-12 w-12 text-muted-foreground" />
           <p className="text-muted-foreground">Заявок поки немає</p>
           <p className="text-sm text-muted-foreground">
@@ -73,7 +73,7 @@ export default function AdminRequestsPage() {
           </p>
         </div>
       ) : (
-        <div className="rounded-xl border bg-white">
+        <div className="rounded-xl border bg-card">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -89,7 +89,7 @@ export default function AdminRequestsPage() {
               </thead>
               <tbody>
                 {requests.map((req) => (
-                  <tr key={req.id} className="border-b last:border-0 hover:bg-zinc-50">
+                  <tr key={req.id} className="border-b last:border-0 hover:bg-muted">
                     <td className="p-4">
                       <div className="font-medium">{req.name}</div>
                       {req.email && <div className="text-xs text-muted-foreground">{req.email}</div>}

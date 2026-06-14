@@ -231,7 +231,7 @@ export default function MediaPage() {
       {/* Toolbar */}
       <div className="mb-4 flex items-center gap-3">
         {/* Breadcrumbs */}
-        <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto rounded-lg border bg-white px-3 py-2 text-sm">
+        <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto rounded-lg border bg-card px-3 py-2 text-sm">
           <button
             onClick={() => navigateTo("")}
             className="flex shrink-0 items-center gap-1 text-muted-foreground hover:text-foreground"
@@ -269,13 +269,13 @@ export default function MediaPage() {
         <div className="flex rounded-lg border">
           <button
             onClick={() => setViewMode("grid")}
-            className={`rounded-l-lg p-2 ${viewMode === "grid" ? "bg-zinc-100" : ""}`}
+            className={`rounded-l-lg p-2 ${viewMode === "grid" ? "bg-muted" : ""}`}
           >
             <Grid3X3 className="h-4 w-4" />
           </button>
           <button
             onClick={() => setViewMode("list")}
-            className={`rounded-r-lg p-2 ${viewMode === "list" ? "bg-zinc-100" : ""}`}
+            className={`rounded-r-lg p-2 ${viewMode === "list" ? "bg-muted" : ""}`}
           >
             <List className="h-4 w-4" />
           </button>
@@ -333,7 +333,7 @@ export default function MediaPage() {
           <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
         </div>
       ) : filteredItems.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-xl border bg-white py-20">
+        <div className="flex flex-col items-center justify-center rounded-xl border bg-card py-20">
           <ImageIcon className="mb-4 h-12 w-12 text-muted-foreground" />
           <p className="mb-2 text-lg font-medium text-muted-foreground">
             {search ? "Нічого не знайдено" : "Папка порожня"}
@@ -354,7 +354,7 @@ export default function MediaPage() {
                 {folders.map((item) => (
                   <div
                     key={item.path}
-                    className={`group relative cursor-pointer rounded-xl border bg-white p-4 text-center transition-all hover:shadow-md ${
+                    className={`group relative cursor-pointer rounded-xl border bg-card p-4 text-center transition-all hover:shadow-md ${
                       selected.has(item.path)
                         ? "border-brand-500 bg-brand-50 ring-1 ring-brand-500"
                         : ""
@@ -371,7 +371,7 @@ export default function MediaPage() {
                         className={`flex h-5 w-5 items-center justify-center rounded border transition-all ${
                           selected.has(item.path)
                             ? "border-brand-600 bg-brand-600"
-                            : "border-zinc-300 bg-white opacity-0 group-hover:opacity-100"
+                            : "border-border bg-card opacity-0 group-hover:opacity-100"
                         }`}
                       >
                         {selected.has(item.path) && (
@@ -404,7 +404,7 @@ export default function MediaPage() {
                 {files.map((item) => (
                   <div
                     key={item.path}
-                    className={`group relative cursor-pointer overflow-hidden rounded-xl border bg-white transition-all hover:shadow-md ${
+                    className={`group relative cursor-pointer overflow-hidden rounded-xl border bg-card transition-all hover:shadow-md ${
                       selected.has(item.path)
                         ? "border-brand-500 ring-1 ring-brand-500"
                         : ""
@@ -421,7 +421,7 @@ export default function MediaPage() {
                         className={`flex h-5 w-5 items-center justify-center rounded border transition-all ${
                           selected.has(item.path)
                             ? "border-brand-600 bg-brand-600"
-                            : "border-zinc-300 bg-white/80 opacity-0 group-hover:opacity-100"
+                            : "border-border bg-card/80 opacity-0 group-hover:opacity-100"
                         }`}
                       >
                         {selected.has(item.path) && (
@@ -432,7 +432,7 @@ export default function MediaPage() {
 
                     {item.url && (
                       <button
-                        className="absolute right-2 top-2 z-10 rounded-md bg-white/80 p-1.5 opacity-0 transition-opacity hover:bg-white group-hover:opacity-100"
+                        className="absolute right-2 top-2 z-10 rounded-md bg-card/80 p-1.5 opacity-0 transition-opacity hover:bg-card group-hover:opacity-100"
                         onClick={(e) => {
                           e.stopPropagation();
                           copyUrl(item.url!);
@@ -448,7 +448,7 @@ export default function MediaPage() {
                     )}
 
                     <div onClick={() => setPreviewItem(item)}>
-                      <div className="relative aspect-square bg-zinc-100">
+                      <div className="relative aspect-square bg-muted">
                         {item.url ? (
                           <Image
                             src={item.url}
@@ -480,7 +480,7 @@ export default function MediaPage() {
         </div>
       ) : (
         /* List view */
-        <div className="rounded-xl border bg-white">
+        <div className="rounded-xl border bg-card">
           <table className="w-full">
             <thead>
               <tr className="border-b text-left text-sm text-muted-foreground">
@@ -490,7 +490,7 @@ export default function MediaPage() {
                     className={`flex h-4 w-4 cursor-pointer items-center justify-center rounded border ${
                       selected.size === filteredItems.length && filteredItems.length > 0
                         ? "border-brand-600 bg-brand-600"
-                        : "border-zinc-300"
+                        : "border-border"
                     }`}
                   >
                     {selected.size === filteredItems.length && filteredItems.length > 0 && (
@@ -507,7 +507,7 @@ export default function MediaPage() {
               {filteredItems.map((item) => (
                 <tr
                   key={item.path}
-                  className={`border-b last:border-0 hover:bg-zinc-50 ${
+                  className={`border-b last:border-0 hover:bg-muted ${
                     selected.has(item.path) ? "bg-brand-50" : ""
                   }`}
                 >
@@ -517,7 +517,7 @@ export default function MediaPage() {
                       className={`flex h-4 w-4 cursor-pointer items-center justify-center rounded border ${
                         selected.has(item.path)
                           ? "border-brand-600 bg-brand-600"
-                          : "border-zinc-300"
+                          : "border-border"
                       }`}
                     >
                       {selected.has(item.path) && (
@@ -537,7 +537,7 @@ export default function MediaPage() {
                       {item.isFolder ? (
                         <Folder className="h-5 w-5 text-blue-400" />
                       ) : item.url ? (
-                        <div className="relative h-8 w-8 overflow-hidden rounded bg-zinc-100">
+                        <div className="relative h-8 w-8 overflow-hidden rounded bg-muted">
                           <Image
                             src={item.url}
                             alt=""
@@ -629,7 +629,7 @@ export default function MediaPage() {
           </DialogHeader>
           {previewItem?.url && (
             <div className="space-y-4">
-              <div className="relative aspect-video overflow-hidden rounded-lg bg-zinc-100">
+              <div className="relative aspect-video overflow-hidden rounded-lg bg-muted">
                 <Image
                   src={previewItem.url}
                   alt={previewItem.name}
@@ -639,7 +639,7 @@ export default function MediaPage() {
                 />
               </div>
               <div className="flex items-center gap-3">
-                <div className="min-w-0 flex-1 rounded-lg border bg-zinc-50 px-3 py-2">
+                <div className="min-w-0 flex-1 rounded-lg border bg-muted px-3 py-2">
                   <p className="truncate text-xs text-muted-foreground">
                     {previewItem.url}
                   </p>

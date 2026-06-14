@@ -188,13 +188,13 @@ export default function BannersPage() {
       </div>
 
       {/* Default/Fallback Banner */}
-      <div className={`rounded-xl border-2 p-6 mb-6 ${hasActiveBanners ? "border-zinc-200 bg-zinc-50 opacity-60" : "border-brand-300 bg-brand-50/30"}`}>
+      <div className={`rounded-xl border-2 p-6 mb-6 ${hasActiveBanners ? "border-border bg-muted opacity-60" : "border-brand-300 bg-brand-50/30"}`}>
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Shield className="h-5 w-5 text-brand-600" />
             <span className="font-semibold text-lg">Основний банер (заглушка)</span>
             {hasActiveBanners ? (
-              <span className="rounded bg-zinc-200 px-2 py-0.5 text-xs text-zinc-600">
+              <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">
                 Не активний — є активні банери
               </span>
             ) : (
@@ -287,7 +287,7 @@ export default function BannersPage() {
 
           <div>
             {defaultBanner.image_url ? (
-              <div className="relative aspect-[16/9] overflow-hidden rounded-lg border bg-zinc-100">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-lg border bg-muted">
                 <img
                   src={defaultBanner.image_url}
                   alt="Default banner"
@@ -304,7 +304,7 @@ export default function BannersPage() {
                 )}
               </div>
             ) : (
-              <div className="flex aspect-[16/9] items-center justify-center rounded-lg border-2 border-dashed bg-zinc-50">
+              <div className="flex aspect-[16/9] items-center justify-center rounded-lg border-2 border-dashed bg-muted">
                 <div className="text-center text-muted-foreground">
                   <ImageIcon className="mx-auto mb-2 h-8 w-8" />
                   <p className="text-sm">Оберіть зображення</p>
@@ -318,7 +318,7 @@ export default function BannersPage() {
       <h3 className="text-lg font-semibold mb-3">Банери слайдера</h3>
 
       {banners.length === 0 && (
-        <div className="rounded-xl border bg-white p-12 text-center">
+        <div className="rounded-xl border bg-card p-12 text-center">
           <ImageIcon className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
           <p className="text-muted-foreground">Немає банерів. Додайте перший банер для слайдера.</p>
         </div>
@@ -326,7 +326,7 @@ export default function BannersPage() {
 
       <div className="space-y-4">
         {banners.map((banner, index) => (
-          <div key={banner.id || `new-${index}`} className="rounded-xl border bg-white p-6">
+          <div key={banner.id || `new-${index}`} className="rounded-xl border bg-card p-6">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <GripVertical className="h-5 w-5 text-muted-foreground" />
@@ -455,7 +455,7 @@ export default function BannersPage() {
 
               <div>
                 {banner.image_url ? (
-                  <div className="relative aspect-[16/9] overflow-hidden rounded-lg border bg-zinc-100">
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-lg border bg-muted">
                     <img
                       src={banner.image_url}
                       alt={banner.title_ua || "Banner"}
@@ -474,7 +474,7 @@ export default function BannersPage() {
                     )}
                   </div>
                 ) : (
-                  <div className="flex aspect-[16/9] items-center justify-center rounded-lg border-2 border-dashed bg-zinc-50">
+                  <div className="flex aspect-[16/9] items-center justify-center rounded-lg border-2 border-dashed bg-muted">
                     <div className="text-center text-muted-foreground">
                       <ImageIcon className="mx-auto mb-2 h-8 w-8" />
                       <p className="text-sm">Оберіть зображення</p>

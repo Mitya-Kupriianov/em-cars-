@@ -177,12 +177,12 @@ export default function AdminCarsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="mb-4 flex gap-1 rounded-lg border bg-zinc-100 p-1">
+      <div className="mb-4 flex gap-1 rounded-lg border bg-muted p-1">
         <button
           onClick={() => setTab("active")}
           className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
             tab === "active"
-              ? "bg-white shadow-sm"
+              ? "bg-card shadow-sm"
               : "text-muted-foreground hover:text-foreground"
           }`}
         >
@@ -192,7 +192,7 @@ export default function AdminCarsPage() {
           onClick={() => setTab("archived")}
           className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
             tab === "archived"
-              ? "bg-white shadow-sm"
+              ? "bg-card shadow-sm"
               : "text-muted-foreground hover:text-foreground"
           }`}
         >
@@ -217,7 +217,7 @@ export default function AdminCarsPage() {
         </div>
       ) : tab === "active" ? (
         /* ── Active cars table ── */
-        <div className="rounded-xl border bg-white">
+        <div className="rounded-xl border bg-card">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -241,9 +241,9 @@ export default function AdminCarsPage() {
                     </td>
                   </tr>
                 ) : filteredActive.map((car) => (
-                  <tr key={car.id} className="border-b last:border-0 hover:bg-zinc-50">
+                  <tr key={car.id} className="border-b last:border-0 hover:bg-muted">
                     <td className="p-4">
-                      <div className="relative h-12 w-20 overflow-hidden rounded-md bg-zinc-100">
+                      <div className="relative h-12 w-20 overflow-hidden rounded-md bg-muted">
                         <CarImage
                           src={car.thumbnail || ""}
                           alt={car.model}
@@ -279,7 +279,7 @@ export default function AdminCarsPage() {
                         className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
                           car.is_promo
                             ? "bg-pink-100 text-pink-700 hover:bg-pink-200"
-                            : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200"
+                            : "bg-muted text-muted-foreground hover:bg-muted"
                         }`}
                       >
                         {togglingPromo === car.id ? (
@@ -302,7 +302,7 @@ export default function AdminCarsPage() {
                         className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
                           car.is_visible !== false
                             ? "bg-brand-100 text-brand-700 hover:bg-brand-200"
-                            : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200"
+                            : "bg-muted text-muted-foreground hover:bg-muted"
                         }`}
                       >
                         {toggling === car.id ? (
@@ -346,7 +346,7 @@ export default function AdminCarsPage() {
         </div>
       ) : (
         /* ── Archived cars table ── */
-        <div className="rounded-xl border bg-white">
+        <div className="rounded-xl border bg-card">
           {filteredArchived.length === 0 ? (
             <div className="flex flex-col items-center gap-3 py-16 text-center">
               <Archive className="h-12 w-12 text-muted-foreground/40" />
@@ -368,9 +368,9 @@ export default function AdminCarsPage() {
                 </thead>
                 <tbody>
                   {filteredArchived.map((car) => (
-                    <tr key={car.id} className="border-b last:border-0 hover:bg-zinc-50">
+                    <tr key={car.id} className="border-b last:border-0 hover:bg-muted">
                       <td className="p-4">
-                        <div className="relative h-12 w-20 overflow-hidden rounded-md bg-zinc-100 opacity-60">
+                        <div className="relative h-12 w-20 overflow-hidden rounded-md bg-muted opacity-60">
                           <CarImage
                             src={car.thumbnail || ""}
                             alt={car.model}

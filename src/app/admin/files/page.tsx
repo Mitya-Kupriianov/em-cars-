@@ -90,7 +90,7 @@ export default function AdminFilesPage() {
 
       <div className="grid gap-6 sm:grid-cols-2">
         {/* Export */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100">
             <Download className="h-6 w-6 text-brand-600" />
           </div>
@@ -115,7 +115,7 @@ export default function AdminFilesPage() {
         </div>
 
         {/* Import */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100">
             <Upload className="h-6 w-6 text-blue-600" />
           </div>
@@ -184,7 +184,7 @@ export default function AdminFilesPage() {
       )}
 
       {/* Instructions */}
-      <div className="mt-6 rounded-xl border bg-zinc-50 p-5">
+      <div className="mt-6 rounded-xl border bg-muted p-5">
         <div className="mb-3 flex items-center gap-2">
           <Info className="h-5 w-5 text-blue-500" />
           <span className="font-semibold">Як користуватись</span>
@@ -198,13 +198,13 @@ export default function AdminFilesPage() {
             Відкрийте файл у Excel або Google Sheets, внесіть зміни
           </li>
           <li>
-            Щоб <strong>оновити</strong> існуючий авто — залиште його <code className="rounded bg-zinc-200 px-1">id</code> без змін
+            Щоб <strong>оновити</strong> існуючий авто — залиште його <code className="rounded bg-muted px-1">id</code> без змін
           </li>
           <li>
-            Щоб <strong>додати</strong> новий авто — залиште колонку <code className="rounded bg-zinc-200 px-1">id</code> порожньою
+            Щоб <strong>додати</strong> новий авто — залиште колонку <code className="rounded bg-muted px-1">id</code> порожньою
           </li>
           <li>
-            Збережіть файл як <code className="rounded bg-zinc-200 px-1">.xlsx</code> і
+            Збережіть файл як <code className="rounded bg-muted px-1">.xlsx</code> і
             натисніть <strong>Обрати файл</strong> для імпорту
           </li>
         </ol>

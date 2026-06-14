@@ -262,14 +262,14 @@ export default function NewCarPage() {
         <ImageGrid images={images} onChange={setImages} />
 
         {/* Brand / Model / Trim */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <h3 className="mb-4 font-semibold">Марка та модель</h3>
           <div className="mb-4 grid gap-4 sm:grid-cols-3">
             <div>
               <Label>Марка</Label>
               <Select value={brand} onValueChange={handleBrandChange} required>
                 <SelectTrigger><SelectValue placeholder="Оберіть марку" /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   {brands.map((b) => (
                     <SelectItem key={b.id} value={b.name}>{b.name}</SelectItem>
                   ))}
@@ -281,7 +281,7 @@ export default function NewCarPage() {
               {models.length > 0 ? (
                 <Select value={model} onValueChange={(v) => v && setModel(v)} required>
                   <SelectTrigger><SelectValue placeholder="Оберіть модель" /></SelectTrigger>
-                  <SelectContent className="light">
+                  <SelectContent>
                     {models.map((m) => (
                       <SelectItem key={m.id} value={m.name}>{m.name}</SelectItem>
                     ))}
@@ -307,7 +307,7 @@ export default function NewCarPage() {
               {brandTrims.length > 0 ? (
                 <Select value={trim} onValueChange={(v) => v && setTrim(v)}>
                   <SelectTrigger><SelectValue placeholder="Оберіть комплектацію" /></SelectTrigger>
-                  <SelectContent className="light">
+                  <SelectContent>
                     {brandTrims.map((t) => (
                       <SelectItem key={t} value={t}>
                         <span className={specTrims.includes(t) ? "font-bold" : ""}>{specTrims.includes(t) ? withLabel(t, specLabel) : t}</span>
@@ -335,7 +335,7 @@ export default function NewCarPage() {
               <Label>Рік</Label>
               <Select value={year} onValueChange={(v) => v && setYear(v)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   {carYears.map((y) => (
                     <SelectItem key={y} value={String(y)}>{y}</SelectItem>
                   ))}
@@ -346,7 +346,7 @@ export default function NewCarPage() {
               <Label>Місто</Label>
               <Select value={cityUa} onValueChange={(v) => setCityUa(!v || v === "__none__" ? "" : v)}>
                 <SelectTrigger><SelectValue placeholder="Не вказано" /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   <SelectItem value="__none__">Не вказано</SelectItem>
                   {cityOptions.map((o) => (
                     <SelectItem key={o.city_ua} value={o.city_ua}>{o.city_ua}</SelectItem>
@@ -358,14 +358,14 @@ export default function NewCarPage() {
         </div>
 
         {/* Basic info */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <h3 className="mb-4 font-semibold">Основна інформація</h3>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <Label>Тип двигуна</Label>
               <Select value={bodyType} onValueChange={(v) => setBodyType(v || "EV")}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   {bodyTypes.map((b) => (
                     <SelectItem key={b} value={b}>{b}</SelectItem>
                   ))}
@@ -376,7 +376,7 @@ export default function NewCarPage() {
               <Label>Колір</Label>
               <Select value={color} onValueChange={(v) => v && setColor(v)}>
                 <SelectTrigger><SelectValue placeholder="Оберіть колір" /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   {carColors.map((c) => (
                     <SelectItem key={c} value={c}>{c}</SelectItem>
                   ))}
@@ -387,7 +387,7 @@ export default function NewCarPage() {
               <Label>Статус</Label>
               <Select value={status} onValueChange={(v) => setStatus(v || "in_stock")}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   <SelectItem value="in_stock">В наявності</SelectItem>
                   <SelectItem value="in_transit">В дорозі</SelectItem>
                   <SelectItem value="on_order">Під замовлення</SelectItem>
@@ -399,7 +399,7 @@ export default function NewCarPage() {
               <Label>Привід</Label>
               <Select value={driveType} onValueChange={(v) => setDriveType(v || "FWD")}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="light">
+                <SelectContent>
                   <SelectItem value="FWD">FWD</SelectItem>
                   <SelectItem value="RWD">RWD</SelectItem>
                   <SelectItem value="AWD">AWD</SelectItem>
@@ -410,7 +410,7 @@ export default function NewCarPage() {
         </div>
 
         {/* Specs */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <h3 className="mb-4 font-semibold">Ціна та характеристики</h3>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
@@ -453,7 +453,7 @@ export default function NewCarPage() {
         </div>
 
         {/* Description */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <h3 className="mb-4 font-semibold">Опис</h3>
           <div className="space-y-4">
             <div>
@@ -472,7 +472,7 @@ export default function NewCarPage() {
         </div>
 
         {/* Features / Equipment */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <h3 className="mb-4 font-semibold">Обладнання</h3>
           <div className="mb-3 flex gap-2">
             <Input
@@ -530,7 +530,7 @@ export default function NewCarPage() {
         </div>
 
         {/* Visibility */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-semibold">Показувати на сайті</h3>
@@ -545,7 +545,7 @@ export default function NewCarPage() {
         </div>
 
         {/* Promo */}
-        <div className="rounded-xl border bg-white p-6">
+        <div className="rounded-xl border bg-card p-6">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-semibold">Акційна пропозиція</h3>

@@ -45,3 +45,12 @@ next-env.d.ts
 
 # но шаблон env коммитим
 !.env.example
+
+# iCloud sync duplicate artifacts ("filename 2.ext")
+* 2.ts
+* 2.tsx
+* 2.js
+* 2.jsx
+* 2.sql
+* 2.json
+* 2.css

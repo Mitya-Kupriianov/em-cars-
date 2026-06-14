@@ -44,9 +44,9 @@ export function Footer() {
   const { t, locale } = useLocale();
 
   const servicesLabels = {
-    ua: { heading: "Послуги", service: "Автосервіс", charging: "Зарядні станції", financing: "Кредит / Лізинг", testdrive: "Тест-драйв", tradein: "Trade-in", faq: "Часті питання" },
-    ru: { heading: "Услуги", service: "Автосервис", charging: "Зарядные станции", financing: "Кредит / Лизинг", testdrive: "Тест-драйв", tradein: "Trade-in", faq: "Частые вопросы" },
-    en: { heading: "Services", service: "Service", charging: "Charging stations", financing: "Financing", testdrive: "Test drive", tradein: "Trade-in", faq: "FAQ" },
+    ua: { heading: "Послуги", service: "Автосервіс", charging: "Зарядні станції", financing: "Кредит / Лізинг", testdrive: "Тест-драйв", tradein: "Trade-in", faq: "Часті питання", blog: "Блог" },
+    ru: { heading: "Услуги", service: "Автосервис", charging: "Зарядные станции", financing: "Кредит / Лизинг", testdrive: "Тест-драйв", tradein: "Trade-in", faq: "Частые вопросы", blog: "Блог" },
+    en: { heading: "Services", service: "Service", charging: "Charging stations", financing: "Financing", testdrive: "Test drive", tradein: "Trade-in", faq: "FAQ", blog: "Blog" },
   };
   const s = servicesLabels[locale as "ua" | "ru" | "en"] ?? servicesLabels.ua;
 
@@ -121,6 +121,9 @@ export function Footer() {
               </Link>
               <Link href="/faq" className="text-sm hover:text-white transition-colors">
                 {s.faq}
+              </Link>
+              <Link href="/blog" className="text-sm hover:text-white transition-colors">
+                {s.blog}
               </Link>
             </nav>
           </div>

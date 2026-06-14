@@ -41,6 +41,7 @@ export default function AdminRequestsPage() {
     callback: "Зворотній дзвінок",
     test_drive: "Тест-драйв",
     credit: "Кредит",
+    trade_in: "Trade-in",
     general: "Загальне",
   };
 

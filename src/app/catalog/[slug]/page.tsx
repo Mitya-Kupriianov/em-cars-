@@ -115,7 +115,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
       {car && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(car)) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(car)).replace(/</g, "\\u003c") }}
         />
       )}
       <CarDetailClient slug={slug} />

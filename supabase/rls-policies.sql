@@ -14,6 +14,23 @@
 -- Если какой-то таблицы в вашей схеме нет — просто пропустите её блок.
 -- ============================================================
 
+-- ---------- ОЧИСТКА ЛЕГАСИ-ПОЛИТИК (ОБЯЗАТЕЛЬНО) ----------
+-- Старая схема (supabase-schema.sql) создавала политики FOR ALL USING (TRUE).
+-- Permissive-политики в PostgreSQL СКЛАДЫВАЮТСЯ по ИЛИ: пока эти политики
+-- существуют, аноним может INSERT/UPDATE/DELETE напрямую публичным anon-ключом
+-- (дефейс баннеров/отзывов/спеков). Их нужно удалить — иначе read-only политики
+-- ниже не дают никакой защиты на запись.
+drop policy if exists "banners_admin_all"      on public.banners;
+drop policy if exists "banners_public_read"    on public.banners;
+drop policy if exists "model_specs_admin_all"  on public.model_specs;
+drop policy if exists "model_specs_public_read" on public.model_specs;
+drop policy if exists "reviews_admin_all"      on public.reviews;
+drop policy if exists "reviews_public_read"    on public.reviews;
+-- Старая cars-политика "viewable by everyone" USING (true) пересиливает
+-- ограничение по is_visible/archived_at ниже и раскрывает скрытые/архивные авто.
+drop policy if exists "Cars are viewable by everyone" on public.cars;
+drop policy if exists "Cars are editable by admins"   on public.cars;
+
 -- ---------- CARS ----------
 -- Аноним видит только видимые и не архивные машины.
 -- ВНИМАНИЕ: политика ссылается на колонки is_visible и archived_at.

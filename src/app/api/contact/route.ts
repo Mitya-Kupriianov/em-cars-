@@ -39,6 +39,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
+  // Honeypot: поле "website" скрыто от людей. Если оно заполнено — это бот.
+  // Возвращаем фейковый успех без записи, чтобы не подсказывать про фильтр.
+  if (typeof body.website === "string" && body.website.trim() !== "") {
+    return NextResponse.json({ success: true, id: crypto.randomUUID() });
+  }
+
   const name = typeof body.name === "string" ? body.name.trim() : "";
   const phone = typeof body.phone === "string" ? body.phone.trim() : "";
   const type = typeof body.type === "string" ? body.type.trim() : "";

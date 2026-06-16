@@ -33,12 +33,14 @@ export function ContactForm({ carId, type = "callback", compact }: ContactFormPr
       car_id: carId,
       type,
     };
+    // honeypot: реальные пользователи это поле не видят и не заполняют
+    const website = (formData.get("website") as string) || "";
 
     try {
       await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, website }),
       });
       setSent(true);
     } finally {
@@ -57,6 +59,10 @@ export function ContactForm({ carId, type = "callback", compact }: ContactFormPr
 
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
+      {/* honeypot: приманка для ботов, скрыта от людей и скринридеров */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" defaultValue="" />
+      </div>
       <Input name="name" placeholder={t("contact.name")} required />
       <PhoneInput name="phone" required />
       {!compact && <Input name="email" placeholder={t("contact.email")} type="email" />}

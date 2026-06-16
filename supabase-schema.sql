@@ -2,6 +2,15 @@
 -- Electro Motors — Supabase Database Schema
 -- Run this in Supabase SQL Editor (Dashboard > SQL Editor)
 -- ========================================
+--
+-- ВНИМАНИЕ ПО БЕЗОПАСНОСТИ (RLS):
+-- Единственный источник правды по RLS-политикам — supabase/rls-policies.sql.
+-- Запускайте этот файл, чтобы создать таблицы, а СРАЗУ ПОСЛЕ — rls-policies.sql.
+-- Здесь НИКОГДА не должно быть политик вида `FOR ALL USING (TRUE)`: они дают
+-- публичной роли anon полный доступ на запись/удаление по публичному ключу.
+-- Модель доступа: запись — только сервер под service-role (в обход RLS),
+-- анониму — лишь чтение публичного контента и вставка заявок.
+-- ========================================
 
 -- 1. Cars table
 CREATE TABLE cars (
@@ -103,14 +112,11 @@ ALTER TABLE cars ENABLE ROW LEVEL SECURITY;
 ALTER TABLE contact_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
 
--- Cars: everyone can read, only authenticated admins can write
+-- Cars: аноним видит только видимые машины; запись — только service-role.
+-- (Фильтр по archived_at добавляется в supabase/rls-policies.sql, где колонка
+--  уже точно существует.)
 CREATE POLICY "Cars are viewable by everyone"
-  ON cars FOR SELECT USING (true);
-
-CREATE POLICY "Cars are editable by admins"
-  ON cars FOR ALL USING (
-    auth.uid() IN (SELECT id FROM admin_users)
-  );
+  ON cars FOR SELECT USING (is_visible IS NOT FALSE);
 
 -- Contact requests: anyone can insert, only admins can read/update
 CREATE POLICY "Anyone can submit a contact request"
@@ -228,7 +234,7 @@ CREATE TABLE banners (
 
 ALTER TABLE banners ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "banners_public_read" ON banners FOR SELECT USING (is_active = TRUE);
-CREATE POLICY "banners_admin_all" ON banners FOR ALL USING (TRUE);
+-- Запись только через service-role (в обход RLS). Политику FOR ALL не создаём.
 
 -- 8. Model specs table (trim comparison sheets)
 CREATE TABLE model_specs (
@@ -243,7 +249,7 @@ CREATE TABLE model_specs (
 
 ALTER TABLE model_specs ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "model_specs_public_read" ON model_specs FOR SELECT USING (true);
-CREATE POLICY "model_specs_admin_all" ON model_specs FOR ALL USING (TRUE);
+-- Запись только через service-role (в обход RLS). Политику FOR ALL не создаём.
 
 CREATE TRIGGER model_specs_updated_at
   BEFORE UPDATE ON model_specs
@@ -263,4 +269,4 @@ CREATE TABLE reviews (
 
 ALTER TABLE reviews ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "reviews_public_read" ON reviews FOR SELECT USING (true);
-CREATE POLICY "reviews_admin_all" ON reviews FOR ALL USING (TRUE);
+-- Запись только через service-role (в обход RLS). Политику FOR ALL не создаём.

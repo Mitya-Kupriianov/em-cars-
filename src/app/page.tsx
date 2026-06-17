@@ -9,6 +9,7 @@ import { HeroSearch } from "@/components/cars/HeroSearch";
 import { WhyUsSection } from "@/components/layout/WhyUsSection";
 import { VideoReviews } from "@/components/layout/VideoReviews";
 import { CarCard } from "@/components/cars/CarCard";
+import { CarCardSkeleton } from "@/components/cars/CarCardSkeleton";
 import { ContactForm } from "@/components/cars/ContactForm";
 import { useLocale } from "@/hooks/use-locale";
 import { offices as defaultOffices } from "@/lib/data";
@@ -90,6 +91,7 @@ function BannerImage({ src, alt }: { src: string; alt: string }) {
 export default function HomePage() {
   const { t, locale } = useLocale();
   const [popularCars, setPopularCars] = useState<Car[]>([]);
+  const [popularLoading, setPopularLoading] = useState(true);
   const [banners, setBanners] = useState<Banner[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [offices, setOffices] = useState(defaultOffices);
@@ -117,7 +119,8 @@ export default function HomePage() {
         }
         setPopularCars(list);
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setPopularLoading(false));
     fetch("/api/banners")
       .then((r) => r.json())
       .then((data) => setBanners(Array.isArray(data) ? data : []))
@@ -302,9 +305,9 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {popularCars.map((car) => (
-              <CarCard key={car.id} car={car} />
-            ))}
+            {popularLoading
+              ? Array.from({ length: 3 }).map((_, i) => <CarCardSkeleton key={i} />)
+              : popularCars.map((car) => <CarCard key={car.id} car={car} />)}
           </div>
         </section>
 
@@ -312,7 +315,7 @@ export default function HomePage() {
         <WhyUsSection />
 
         {/* ── About & Advantages ── */}
-        <section className="bg-section py-10 sm:py-16">
+        <section className="cv-section bg-section py-10 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="grid gap-8 sm:gap-12 lg:grid-cols-2">
               {/* About text */}
@@ -404,7 +407,7 @@ export default function HomePage() {
             <h2 className="mb-6 text-xl font-bold sm:mb-8 sm:text-2xl lg:text-3xl">
               {t("home.our_offices")}
             </h2>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex min-h-[248px] flex-wrap justify-center gap-4">
               {offices.map((office, oi) => (
                 <div
                   key={office.city_ua || office.city_ru || oi}

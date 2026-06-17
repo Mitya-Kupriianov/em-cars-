@@ -251,6 +251,7 @@ export default function AdminCarsPage() {
                           className="object-cover"
                           sizes="80px"
                           fallbackText=""
+                          preloadAhead={false}
                         />
                       </div>
                     </td>
@@ -378,6 +379,7 @@ export default function AdminCarsPage() {
                             className="object-cover"
                             sizes="80px"
                             fallbackText=""
+                            preloadAhead={false}
                           />
                         </div>
                       </td>

@@ -5,6 +5,11 @@
 @custom-variant dark (&:is(.dark *));
 @custom-variant light (&:is(.light *));
 
+@utility cv-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

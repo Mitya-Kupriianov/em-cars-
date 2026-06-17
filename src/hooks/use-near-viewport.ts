@@ -23,6 +23,9 @@ export function useNearViewport(ref: RefObject<Element | null>): boolean {
     const el = ref.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") {
+      // Фолбэк для сред без IntersectionObserver (очень старые браузеры):
+      // грузим сразу. Разовый синхронный setState в фолбэк-ветке, не каскад.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setNear(true);
       return;
     }

@@ -40,7 +40,7 @@ export function WhyUsSection() {
 
   return (
     <>
-      <section className="py-16">
+      <section className="cv-section py-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <h2 className="mb-10 text-center text-2xl font-bold uppercase tracking-wide lg:text-3xl">
             {locale === "ua" ? "Чому ми найкращі" : locale === "en" ? "Why we are the best" : "Почему мы лучшие"}

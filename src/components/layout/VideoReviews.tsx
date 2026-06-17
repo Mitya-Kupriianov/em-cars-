@@ -83,7 +83,7 @@ export function VideoReviews() {
   if (reviews.length === 0) return null;
 
   return (
-    <section className="bg-section py-12 sm:py-16">
+    <section className="cv-section bg-section py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="mb-8 flex items-end justify-between sm:mb-10">
           <div className="flex items-stretch gap-4">

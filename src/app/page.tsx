@@ -315,7 +315,7 @@ export default function HomePage() {
         <WhyUsSection />
 
         {/* ── About & Advantages ── */}
-        <section className="bg-section py-10 sm:py-16">
+        <section className="cv-section bg-section py-10 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="grid gap-8 sm:gap-12 lg:grid-cols-2">
               {/* About text */}

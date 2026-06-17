@@ -51,7 +51,7 @@ export function Footer() {
   const s = servicesLabels[locale as "ua" | "ru" | "en"] ?? servicesLabels.ua;
 
   return (
-    <footer className="border-t bg-[#15171B] text-zinc-300">
+    <footer className="cv-section border-t bg-[#15171B] text-zinc-300">
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div>

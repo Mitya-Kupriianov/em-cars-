@@ -1,5 +1,22 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
+// Частичный CSP: только директивы, не зависящие от доменов скриптов
+// (Clerk/Supabase), поэтому они безопасны и ничего не ломают.
+//   object-src 'none'      — блокирует <object>/<embed>/плагины
+//   base-uri 'self'        — запрещает подмену <base> (вектор XSS/угона ссылок)
+//   frame-ancestors 'self' — анти-кликджекинг (современный аналог X-Frame-Options)
+//   upgrade-insecure-requests — апгрейд http→https (только в проде)
+// Полный script-src/connect-src lockdown через proxy.ts + nonce — отдельной
+// задачей ПОСЛЕ перевода Clerk на production-инстанс (домены скриптов сменятся).
+const contentSecurityPolicy = [
+  "object-src 'none'",
+  "base-uri 'self'",
+  "frame-ancestors 'self'",
+  ...(isDev ? [] : ["upgrade-insecure-requests"]),
+].join("; ");
+
 const nextConfig: NextConfig = {
   output: "standalone",
   images: {
@@ -35,6 +52,7 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
+          { key: "Content-Security-Policy", value: contentSecurityPolicy },
         ],
       },
     ];

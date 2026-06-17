@@ -407,7 +407,7 @@ export default function HomePage() {
             <h2 className="mb-6 text-xl font-bold sm:mb-8 sm:text-2xl lg:text-3xl">
               {t("home.our_offices")}
             </h2>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex min-h-[248px] flex-wrap justify-center gap-4">
               {offices.map((office, oi) => (
                 <div
                   key={office.city_ua || office.city_ru || oi}

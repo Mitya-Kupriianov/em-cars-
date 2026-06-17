@@ -15,6 +15,7 @@ export function CarImage({
   fallbackText = "Немає фото",
   className,
   preloadAhead = true,
+  loading: loadingProp,
   ...props
 }: CarImageProps) {
   const [error, setError] = useState(false);
@@ -30,11 +31,10 @@ export function CarImage({
     );
   }
 
-  const loading = preloadAhead
-    ? near
-      ? "eager"
-      : "lazy"
-    : props.loading;
+  // next/image бросает при одновременных priority и loading="lazy". Поэтому при
+  // priority не навязываем lazy/eager — пусть Next решает сам.
+  const loading =
+    preloadAhead && !props.priority ? (near ? "eager" : "lazy") : loadingProp;
 
   return (
     <Image

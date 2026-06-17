@@ -9,6 +9,7 @@ import { HeroSearch } from "@/components/cars/HeroSearch";
 import { WhyUsSection } from "@/components/layout/WhyUsSection";
 import { VideoReviews } from "@/components/layout/VideoReviews";
 import { CarCard } from "@/components/cars/CarCard";
+import { CarCardSkeleton } from "@/components/cars/CarCardSkeleton";
 import { ContactForm } from "@/components/cars/ContactForm";
 import { useLocale } from "@/hooks/use-locale";
 import { offices as defaultOffices } from "@/lib/data";
@@ -302,9 +303,9 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {popularCars.map((car) => (
-              <CarCard key={car.id} car={car} />
-            ))}
+            {popularCars.length === 0
+              ? Array.from({ length: 3 }).map((_, i) => <CarCardSkeleton key={i} />)
+              : popularCars.map((car) => <CarCard key={car.id} car={car} />)}
           </div>
         </section>
 

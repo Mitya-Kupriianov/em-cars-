@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhyUsSection } from "@/components/layout/WhyUsSection";
 import { CarCard } from "@/components/cars/CarCard";
+import { CarCardSkeleton } from "@/components/cars/CarCardSkeleton";
 import { CatalogFilters } from "@/components/cars/CatalogFilters";
 import { useLocale } from "@/hooks/use-locale";
 import { rememberCatalogUrl } from "@/hooks/use-compare";
@@ -150,19 +151,7 @@ export default function CatalogPage() {
               {loading ? (
                 <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                   {Array.from({ length: pageSize }).map((_, i) => (
-                    <div key={i} className="animate-pulse rounded-xl border-0 bg-card shadow-sm overflow-hidden">
-                      <div className="aspect-[16/10] bg-muted" />
-                      <div className="p-4 space-y-3">
-                        <div className="h-3 w-16 rounded bg-muted" />
-                        <div className="h-5 w-3/4 rounded bg-muted" />
-                        <div className="flex gap-4">
-                          <div className="h-3 w-16 rounded bg-muted" />
-                          <div className="h-3 w-16 rounded bg-muted" />
-                          <div className="h-3 w-16 rounded bg-muted" />
-                        </div>
-                        <div className="h-7 w-1/2 rounded bg-muted mt-2" />
-                      </div>
-                    </div>
+                    <CarCardSkeleton key={i} />
                   ))}
                 </div>
               ) : cars.length === 0 ? (

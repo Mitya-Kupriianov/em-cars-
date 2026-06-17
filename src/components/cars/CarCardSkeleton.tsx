@@ -1,6 +1,6 @@
 export function CarCardSkeleton() {
   return (
-    <div className="animate-pulse overflow-hidden rounded-xl border-0 bg-card shadow-sm">
+    <div className="animate-pulse overflow-hidden rounded-xl border border-border bg-card shadow-sm">
       <div className="aspect-[16/10] bg-muted" />
       <div className="space-y-3 p-4">
         <div className="h-3 w-16 rounded bg-muted" />

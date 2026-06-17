@@ -91,6 +91,7 @@ function BannerImage({ src, alt }: { src: string; alt: string }) {
 export default function HomePage() {
   const { t, locale } = useLocale();
   const [popularCars, setPopularCars] = useState<Car[]>([]);
+  const [popularLoading, setPopularLoading] = useState(true);
   const [banners, setBanners] = useState<Banner[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [offices, setOffices] = useState(defaultOffices);
@@ -118,7 +119,8 @@ export default function HomePage() {
         }
         setPopularCars(list);
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setPopularLoading(false));
     fetch("/api/banners")
       .then((r) => r.json())
       .then((data) => setBanners(Array.isArray(data) ? data : []))
@@ -303,7 +305,7 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {popularCars.length === 0
+            {popularLoading
               ? Array.from({ length: 3 }).map((_, i) => <CarCardSkeleton key={i} />)
               : popularCars.map((car) => <CarCard key={car.id} car={car} />)}
           </div>
